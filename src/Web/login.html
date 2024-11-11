@@ -5,93 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
     <title>Login-Seite</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-        .login-container {
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            width: 350px;
-            text-align: center;
-        }
-        .logo {
-            width: 100px;
-            margin-bottom: 20px;
-        }
-        h1 {
-            font-size: 24px;
-            margin-bottom: 20px;
-            color: #333;
-        }
-        .input-field {
-            width: 100%;
-            padding: 12px;
-            margin: 10px 0;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-            transition: border 0.3s;
-        }
-        .input-field:focus {
-            border: 1px solid #007BFF;
-            outline: none;
-        }
-        .login-button {
-            width: 100%;
-            padding: 12px;
-            background: #F97316;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-            transition: background 0.3s;
-        }
-        .login-button:hover {
-            background: #0056b3;
-        }
-        .forgot-password {
-            display: block;
-            margin: 10px 0;
-            color: #007BFF;
-            text-decoration: none;
-        }
-        .forgot-password:hover {
-            text-decoration: underline;
-        }
-        .register-link {
-            margin-top: 20px;
-            color: #333;
-        }
-        .brand-name {
-            font-size: 2rem;
-            font-weight: bold;
-            background: linear-gradient(90deg, #ff6b6b, #ffa500);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 20px;
-        }
-    </style>
 </head>
-<body>
+<body class="bg-gray-100 flex justify-center items-center min-h-screen m-0">
 
-<div class="login-container">
-    <div class="brand-name" data-id="4">power4you</div>
-    <h1>Willkommen!</h1>
-    <input type="email" placeholder="E-Mail-Adresse" class="input-field" required>
-    <input type="password" placeholder="Passwort" class="input-field" required>
-    <button class="login-button">Anmelden</button>
-    <a href="#" class="forgot-password">Passwort vergessen?</a>
-    <p class="register-link">Noch kein Konto? <a href="#">Registrieren</a></p>
-    
+<div class="bg-white p-8 rounded-lg shadow-lg w-96 text-center">
+    <!-- Logo -->
+    <span class="text-2xl font-bold text-gray-900">
+        power4you <span class="text-orange-500">🔥</span>
+    </span>
+
+    <h1 class="text-2xl font-semibold text-gray-800 mt-6 mb-4">Willkommen!</h1>
+
+    <!-- Eingabefelder -->
+    <input type="email" placeholder="E-Mail-Adresse" class="w-full p-3 mb-4 border border-gray-300 rounded-md focus:border-blue-500 focus:outline-none" required>
+
+    <input type="password" placeholder="Passwort" class="w-full p-3 mb-4 border border-gray-300 rounded-md focus:border-blue-500 focus:outline-none" required>
+
+    <!-- Login Button -->
+    <button class="w-full p-3 bg-orange-500 text-white rounded-md hover:bg-orange-600 transition-colors">Anmelden</button>
+
+    <!-- Links -->
+    <a href="#" class="block text-blue-500 mt-4 mb-4 hover:underline">Passwort vergessen?</a>
+    <p class="text-gray-800">Noch kein Konto? <a href="#" class="text-blue-500 hover:underline">Registrieren</a></p>
 </div>
 
 </body>
