@@ -24,7 +24,7 @@ namespace power4you_client
 
         private void AnlagenButton_Click(object sender, RoutedEventArgs e)
         {
-            //MainFrame.Navigate(new AnlagenView());
+            MainFrame.Navigate(new SolarModulTypenView());
         }
 
         private void SettingsButton_Click(object sender, RoutedEventArgs e)

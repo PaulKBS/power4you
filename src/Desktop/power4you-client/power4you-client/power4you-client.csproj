@@ -100,6 +100,13 @@
     <Compile Include="Views\KundenAnlageView.xaml.cs">
       <DependentUpon>KundenAnlageView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="SolarModulTyp.cs" />
+    <Compile Include="Views\SolarModulTypDialog.xaml.cs">
+      <DependentUpon>SolarModulTypDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SolarModulTypenView.xaml.cs">
+      <DependentUpon>SolarModulTypenView.xaml</DependentUpon>
+    </Compile>
     <Page Include="LoginWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -126,6 +133,14 @@
     <Page Include="Views\KundenAnlageView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\SolarModulTypDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SolarModulTypenView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>

@@ -61,7 +61,7 @@
             </Setter>
         </Style>
     </UserControl.Resources>
-    
+
     <Border Padding="30">
         <Grid>
             <Grid.RowDefinitions>
@@ -70,7 +70,6 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
-            <!-- Header -->
             <StackPanel Grid.Row="0" Margin="0,0,0,20">
                 <TextBlock Text="Neue Kundenanlage 📋"
                          FontSize="24" 
@@ -83,10 +82,8 @@
                          Margin="0,10,0,0"/>
             </StackPanel>
 
-            <!-- Kundenformular -->
             <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
                 <StackPanel>
-                    <!-- Persönliche Daten -->
                     <GroupBox Header="Persönliche Daten" Margin="0,0,0,20">
                         <StackPanel Margin="10">
                             <Label Content="Vorname"/>
@@ -101,17 +98,38 @@
 
                             <Label Content="E-Mail"/>
                             <TextBox x:Name="EmailTextBox" 
-                                   Margin="0,0,0,15"
-                                   materialDesign:HintAssist.Hint="E-Mail-Adresse eingeben"/>
+                                   Margin="0,0,0,5"
+                                   materialDesign:HintAssist.Hint="E-Mail-Adresse eingeben"
+                                   LostFocus="EmailTextBox_LostFocus"/>
+                            <TextBlock x:Name="EmailErrorText" 
+                                     Foreground="Red" 
+                                     Margin="0,0,0,15" 
+                                     Visibility="Collapsed"/>
 
                             <Label Content="Telefon"/>
-                            <TextBox x:Name="TelefonTextBox" 
-                                   Margin="0,0,0,15"
-                                   materialDesign:HintAssist.Hint="Telefonnummer eingeben"/>
+                            <Grid Margin="0,0,0,5">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <ComboBox x:Name="VorwahlComboBox" 
+                                        Width="120" 
+                                        Margin="0,0,10,0"
+                                        materialDesign:HintAssist.Hint="Vorwahl">
+                                    <ComboBoxItem Content="+49 (🇩🇪)" Tag="+49"/>
+                                </ComboBox>
+                                <TextBox x:Name="TelefonTextBox" 
+                                       Grid.Column="1"
+                                       materialDesign:HintAssist.Hint="Telefonnummer eingeben"
+                                       LostFocus="TelefonTextBox_LostFocus"/>
+                            </Grid>
+                            <TextBlock x:Name="TelefonErrorText" 
+                                     Foreground="Red" 
+                                     Margin="0,0,0,15" 
+                                     Visibility="Collapsed"/>
                         </StackPanel>
                     </GroupBox>
 
-                    <!-- Adressdaten -->
                     <GroupBox Header="Adresse" Margin="0,0,0,20">
                         <StackPanel Margin="10">
                             <Label Content="Straße"/>
@@ -138,7 +156,6 @@
                 </StackPanel>
             </ScrollViewer>
 
-            <!-- Button-Leiste -->
             <StackPanel Grid.Row="2" 
                       Orientation="Horizontal" 
                       HorizontalAlignment="Right" 
@@ -156,4 +173,4 @@
             </StackPanel>
         </Grid>
     </Border>
-</UserControl> 
+</UserControl>
