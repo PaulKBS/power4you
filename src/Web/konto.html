@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>power4you - Benutzereinstellungen</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="flex flex-col min-h-screen bg-gray-50">
+    <!-- Navbar -->
+    <nav class="bg-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 flex items-center">
+                        <span class="text-2xl font-bold text-gray-900">
+                            power4you <span class="text-orange-500">🔥</span>
+                        </span>
+                    </div>
+                    <div class="hidden md:ml-6 md:flex md:space-x-8">
+                        <a href="#" class="inline-flex items-center px-1 pt-1 border-b-2 border-orange-500 text-sm font-medium text-gray-900">
+                            Home
+                        </a>
+                        <a href="#" class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">
+                            Anlagen
+                        </a>
+                        <a href="#" class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">
+                            Live Daten
+                        </a>
+                        <a href="#" class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">
+                            Support
+                        </a>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <button class="text-gray-500 hover:text-gray-700">
+                        <i class="fas fa-user text-xl"></i>
+                    </button>
+                    <button class="text-gray-500 hover:text-gray-700 md:hidden">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="flex-1 p-6 space-y-6 max-w-7xl mx-auto w-full mb-12">
+        <h1 class="text-2xl font-bold text-gray-900">Benutzereinstellungen</h1>
+        
+        <!-- Personal Information Section -->
+        <div class="bg-white p-6 rounded-lg shadow-sm">
+            <h2 class="text-lg font-medium text-gray-900 mb-4">Persönliche Informationen</h2>
+            <form class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Name</label>
+                    <input type="text" class="mt-1 p-2 block w-full border border-gray-300 rounded-md" placeholder="Ihr Name">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">E-Mail-Adresse</label>
+                    <input type="email" class="mt-1 p-2 block w-full border border-gray-300 rounded-md" placeholder="email@power4you.de">
+                </div>
+                <button type="submit" class="mt-4 w-full bg-orange-500 text-white py-2 rounded-lg hover:bg-orange-600">Änderungen speichern</button>
+            </form>
+        </div>
+
+        <!-- Password Change Section -->
+        <div class="bg-white p-6 rounded-lg shadow-sm">
+            <h2 class="text-lg font-medium text-gray-900 mb-4">Passwort ändern</h2>
+            <form class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Aktuelles Passwort</label>
+                    <input type="password" class="mt-1 p-2 block w-full border border-gray-300 rounded-md" placeholder="Aktuelles Passwort">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Neues Passwort</label>
+                    <input type="password" class="mt-1 p-2 block w-full border border-gray-300 rounded-md" placeholder="Neues Passwort">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Neues Passwort bestätigen</label>
+                    <input type="password" class="mt-1 p-2 block w-full border border-gray-300 rounded-md" placeholder="Neues Passwort bestätigen">
+                </div>
+                <button type="submit" class="mt-4 w-full bg-orange-500 text-white py-2 rounded-lg hover:bg-orange-600">Passwort ändern</button>
+            </form>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white">
+        <div class="max-w-7xl mx-auto px-4 py-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                <div class="space-y-3">
+                    <h3 class="text-base font-bold text-orange-500">power4you</h3>
+                    <p class="text-sm text-gray-400">Innovative Energielösungen für eine nachhaltige Zukunft</p>
+                </div>
+                <div>
+                    <h3 class="text-base font-semibold mb-2">Quick Links</h3>
+                    <ul class="space-y-1 text-sm">
+                        <li><a href="#" class="text-gray-400 hover:text-white">Über uns</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Karriere</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">FAQ</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-base font-semibold mb-2">Rechtliches</h3>
+                    <ul class="space-y-1 text-sm">
+                        <li><a href="#" class="text-gray-400 hover:text-white">Impressum</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Datenschutz</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">AGB</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-base font-semibold mb-2">Kontakt</h3>
+                    <ul class="space-y-1 text-sm text-gray-400">
+                        <li class="flex items-center space-x-2">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Musterstraße 123, 12345 Stadt</span>
+                        </li>
+                        <li class="flex items-center space-x-2">
+                            <i class="fas fa-envelope"></i>
+                            <span>info@power4you.de</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-6 pt-6 text-center text-sm text-gray-400">
+                <p>&copy; 2024 power4you. Alle Rechte vorbehalten.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
