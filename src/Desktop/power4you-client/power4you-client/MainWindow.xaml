@@ -4,9 +4,89 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:power4you_client"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Power4You" Height="650" Width="1200"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        Background="{DynamicResource MaterialDesignPaper}"
+        TextElement.FontWeight="Medium"
+        TextElement.FontSize="14"
+        FontFamily="{materialDesign:MaterialDesignFont}">
+
+    <Window.Resources>
+        <Style x:Key="MenuButtonStyle" TargetType="Button">
+            <Setter Property="Height" Value="45"/>
+            <Setter Property="Margin" Value="0,5"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderThickness="{TemplateBinding BorderThickness}">
+                            <ContentPresenter HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#22FFFFFF"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="250"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Sidebar -->
+        <Grid Grid.Column="0" Background="#FF2196F3">
+            <!-- Logo and Company Name -->
+            <StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="20,30,0,40">
+                    <materialDesign:PackIcon Kind="WhiteBalanceSunny" Width="30" Height="30" Foreground="White"/>
+                    <TextBlock Text="Power4You" FontSize="24" Foreground="White" Margin="15,0,0,0" VerticalAlignment="Center"/>
+                </StackPanel>
+
+                <!-- Navigation Buttons -->
+                <Button Style="{StaticResource MenuButtonStyle}" x:Name="DashboardButton" Click="DashboardButton_Click">
+                    <StackPanel Orientation="Horizontal" Margin="20,0">
+                        <materialDesign:PackIcon Kind="SolarElectricity" Width="25" Height="25"/>
+                        <TextBlock Text="Dashboard" Margin="15,0,0,0" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+
+                <Button Style="{StaticResource MenuButtonStyle}" x:Name="KundenButton" Click="KundenButton_Click">
+                    <StackPanel Orientation="Horizontal" Margin="20,0">
+                        <materialDesign:PackIcon Kind="AccountGroup" Width="25" Height="25"/>
+                        <TextBlock Text="Kunden" Margin="15,0,0,0" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+
+                <Button Style="{StaticResource MenuButtonStyle}" x:Name="AnlagenButton" Click="AnlagenButton_Click">
+                    <StackPanel Orientation="Horizontal" Margin="20,0">
+                        <materialDesign:PackIcon Kind="SolarPanel" Width="25" Height="25"/>
+                        <TextBlock Text="Anlagen" Margin="15,0,0,0" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+
+                <Button Style="{StaticResource MenuButtonStyle}" x:Name="SettingsButton" Click="SettingsButton_Click">
+                    <StackPanel Orientation="Horizontal" Margin="20,0">
+                        <materialDesign:PackIcon Kind="Cog" Width="25" Height="25"/>
+                        <TextBlock Text="Einstellungen" Margin="15,0,0,0" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+        </Grid>
+
+        <!-- Main Content Area -->
+        <Grid Grid.Column="1" Background="#FFF5F5F5">
+            <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden"/>
+        </Grid>
     </Grid>
 </Window>
