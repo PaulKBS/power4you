@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>power4you - Anlagen</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="flex flex-col min-h-screen bg-gray-50">
+    <!-- Navbar -->
+    <nav class="bg-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <!-- Logo -->
+                    <div class="flex-shrink-0 flex items-center">
+                        <span class="text-2xl font-bold text-gray-900">
+                            power4you <span class="text-orange-500">🔥</span>
+                        </span>
+                    </div>
+                    <!-- Navigation Links -->
+                    <div class="hidden md:ml-6 md:flex md:space-x-8">
+                        <a href="index.html" class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">
+                            Home
+                        </a>
+                        <a href="anlagen.html" class="inline-flex items-center px-1 pt-1 border-b-2 border-orange-500 text-sm font-medium text-gray-900">
+                            Anlagen
+                        </a>
+                        <a href="#" class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">
+                            Live Daten
+                        </a>
+                        <a href="#" class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">
+                            Support
+                        </a>
+                    </div>
+                </div>
+                <!-- User Menu -->
+                <div class="flex items-center space-x-4">
+                    <button class="text-gray-500 hover:text-gray-700">
+                        <i class="fas fa-user text-xl"></i>
+                    </button>
+                    <button class="text-gray-500 hover:text-gray-700 md:hidden">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="flex-1 p-6 space-y-6 max-w-7xl mx-auto w-full mb-12">
+        <!-- Header with Summary -->
+        <div class="bg-white p-6 rounded-lg shadow-sm">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-xl font-bold text-gray-900">Ihre Photovoltaikanlagen</h2>
+                <button class="bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600">
+                    <i class="fas fa-plus mr-2"></i>Neue Anlage hinzufügen
+                </button>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="bg-gray-50 p-4 rounded-lg">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-gray-500 text-sm">Gesamtleistung</p>
+                            <p class="text-2xl font-bold text-gray-900">24.5 kWp</p>
+                        </div>
+                        <div class="text-orange-500">
+                            <i class="fas fa-solar-panel text-3xl"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-gray-50 p-4 rounded-lg">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-gray-500 text-sm">Aktive Anlagen</p>
+                            <p class="text-2xl font-bold text-gray-900">3</p>
+                        </div>
+                        <div class="text-green-500">
+                            <i class="fas fa-check-circle text-3xl"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-gray-50 p-4 rounded-lg">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-gray-500 text-sm">Gesamtertrag heute</p>
+                            <p class="text-2xl font-bold text-gray-900">89.2 kWh</p>
+                        </div>
+                        <div class="text-blue-500">
+                            <i class="fas fa-bolt text-3xl"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Individual Systems -->
+        <div class="space-y-4">
+            <!-- System 1 -->
+            <div class="bg-white p-6 rounded-lg shadow-sm">
+                <div class="flex justify-between items-start mb-4">
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-900">Haupthaus</h3>
+                        <p class="text-sm text-gray-500">Musterstraße 123, 12345 Stadt</p>
+                    </div>
+                    <span class="px-3 py-1 rounded-full text-sm bg-green-100 text-green-800">
+                        <i class="fas fa-circle text-xs mr-1"></i>Aktiv
+                    </span>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <p class="text-sm text-gray-500">Installierte Leistung</p>
+                        <p class="text-xl font-semibold">12.4 kWp</p>
+                    </div>
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <p class="text-sm text-gray-500">Aktuelle Leistung</p>
+                        <p class="text-xl font-semibold">8.2 kW</p>
+                    </div>
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <p class="text-sm text-gray-500">Tagesertrag</p>
+                        <p class="text-xl font-semibold">45.8 kWh</p>
+                    </div>
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <p class="text-sm text-gray-500">Performance Ratio</p>
+                        <p class="text-xl font-semibold">94%</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- System 2 -->
+            <div class="bg-white p-6 rounded-lg shadow-sm">
+                <div class="flex justify-between items-start mb-4">
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-900">Ferienhaus</h3>
+                        <p class="text-sm text-gray-500">Bergstraße 45, 23456 Bergdorf</p>
+                    </div>
+                    <span class="px-3 py-1 rounded-full text-sm bg-green-100 text-green-800">
+                        <i class="fas fa-circle text-xs mr-1"></i>Aktiv
+                    </span>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <p class="text-sm text-gray-500">Installierte Leistung</p>
+                        <p class="text-xl font-semibold">6.8 kWp</p>
+                    </div>
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <p class="text-sm text-gray-500">Aktuelle Leistung</p>
+                        <p class="text-xl font-semibold">4.5 kW</p>
+                    </div>
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <p class="text-sm text-gray-500">Tagesertrag</p>
+                        <p class="text-xl font-semibold">24.6 kWh</p>
+                    </div>
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <p class="text-sm text-gray-500">Performance Ratio</p>
+                        <p class="text-xl font-semibold">91%</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- System 3 -->
+            <div class="bg-white p-6 rounded-lg shadow-sm">
+                <div class="flex justify-between items-start mb-4">
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-900">Gewerbehalle</h3>
+                        <p class="text-sm text-gray-500">Industrieweg 78, 34567 Werkstadt</p>
+                    </div>
+                    <span class="px-3 py-1 rounded-full text-sm bg-green-100 text-green-800">
+                        <i class="fas fa-circle text-xs mr-1"></i>Aktiv
+                    </span>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <p class="text-sm text-gray-500">Installierte Leistung</p>
+                        <p class="text-xl font-semibold">5.3 kWp</p>
+                    </div>
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <p class="text-sm text-gray-500">Aktuelle Leistung</p>
+                        <p class="text-xl font-semibold">3.8 kW</p>
+                    </div>
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <p class="text-sm text-gray-500">Tagesertrag</p>
+                        <p class="text-xl font-semibold">18.8 kWh</p>
+                    </div>
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <p class="text-sm text-gray-500">Performance Ratio</p>
+                        <p class="text-xl font-semibold">89%</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white">
+        <div class="max-w-7xl mx-auto px-4 py-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                <div class="space-y-3">
+                    <h3 class="text-base font-bold text-orange-500">power4you</h3>
+                    <p class="text-sm text-gray-400">Innovative Energielösungen für eine nachhaltige Zukunft</p>
+                </div>
+                <div>
+                    <h3 class="text-base font-semibold mb-2">Quick Links</h3>
+                    <ul class="space-y-1 text-sm">
+                        <li><a href="#" class="text-gray-400 hover:text-white">Über uns</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Karriere</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">FAQ</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-base font-semibold mb-2">Rechtliches</h3>
+                    <ul class="space-y-1 text-sm">
+                        <li><a href="#" class="text-gray-400 hover:text-white">Impressum</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Datenschutz</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">AGB</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-base font-semibold mb-2">Kontakt</h3>
+                    <ul class="space-y-1 text-sm text-gray-400">
+                        <li class="flex items-center space-x-2">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Musterstraße 123, 12345 Stadt</span>
+                        </li>
+                        <li class="flex items-center space-x-2">
+                            <i class="fas fa-envelope"></i>
+                            <span>info@power4you.de</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-6 pt-6 text-center text-sm text-gray-400">
+                <p>&copy; 2024 power4you. Alle Rechte vorbehalten.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html> 

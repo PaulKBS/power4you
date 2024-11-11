@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>power4you - Live Daten</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="flex flex-col min-h-screen bg-gray-50">
+    <!-- Navbar -->
+    <nav class="bg-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <!-- Logo -->
+                    <div class="flex-shrink-0 flex items-center">
+                        <span class="text-2xl font-bold text-gray-900">
+                            power4you <span class="text-orange-500">🔥</span>
+                        </span>
+                    </div>
+                    <!-- Navigation Links -->
+                    <div class="hidden md:ml-6 md:flex md:space-x-8">
+                        <a href="index.html" class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">
+                            Home
+                        </a>
+                        <a href="anlagen.html" class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">
+                            Anlagen
+                        </a>
+                        <a href="live-data.html" class="inline-flex items-center px-1 pt-1 border-b-2 border-orange-500 text-sm font-medium text-gray-900">
+                            Live Daten
+                        </a>
+                        <a href="#" class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">
+                            Support
+                        </a>
+                    </div>
+                </div>
+                <!-- User Menu -->
+                <div class="flex items-center space-x-4">
+                    <button class="text-gray-500 hover:text-gray-700">
+                        <i class="fas fa-user text-xl"></i>
+                    </button>
+                    <button id="mobile-menu-button" class="text-gray-500 hover:text-gray-700 md:hidden">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden pb-3">
+            <div class="space-y-1">
+                <a href="index.html" class="block px-3 py-2 text-base font-medium text-gray-500 hover:text-gray-900 hover:bg-gray-50">
+                    Home
+                </a>
+                <a href="anlagen.html" class="block px-3 py-2 text-base font-medium text-gray-500 hover:text-gray-900 hover:bg-gray-50">
+                    Anlagen
+                </a>
+                <a href="live-data.html" class="block px-3 py-2 text-base font-medium text-gray-900 bg-gray-50">
+                    Live Daten
+                </a>
+                <a href="#" class="block px-3 py-2 text-base font-medium text-gray-500 hover:text-gray-900 hover:bg-gray-50">
+                    Support
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="flex-1 p-6 space-y-6 max-w-7xl mx-auto w-full mb-12">
+        <!-- Installation Selector -->
+        <div class="bg-white p-6 rounded-lg shadow-sm">
+            <div class="max-w-xl mx-auto">
+                <label for="installation" class="block text-sm font-medium text-gray-700 mb-2">Wählen Sie eine Anlage</label>
+                <div class="relative">
+                    <select id="installation" class="block w-full pl-4 pr-10 py-3 text-base border-gray-300 focus:outline-none focus:ring-orange-500 focus:border-orange-500 rounded-lg shadow-sm">
+                        <option value="haupthaus">Haupthaus - Musterstraße 123</option>
+                        <option value="ferienhaus">Ferienhaus - Bergstraße 45</option>
+                        <option value="gewerbehalle">Gewerbehalle - Industrieweg 78</option>
+                    </select>
+                    <div class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
+                        <i class="fas fa-chevron-down text-gray-400"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Live Data Display -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Left Column -->
+            <div class="space-y-6">
+                <!-- Current Status -->
+                <div class="bg-white p-6 rounded-lg shadow-sm">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Aktuelle Werte</h3>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <div class="flex items-center space-x-3">
+                                <div class="text-orange-500">
+                                    <i class="fas fa-sun text-2xl"></i>
+                                </div>
+                                <div>
+                                    <p class="text-sm text-gray-500">Solarleistung</p>
+                                    <p class="text-xl font-semibold">4.2 kW</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <div class="flex items-center space-x-3">
+                                <div class="text-blue-500">
+                                    <i class="fas fa-plug text-2xl"></i>
+                                </div>
+                                <div>
+                                    <p class="text-sm text-gray-500">Verbrauch</p>
+                                    <p class="text-xl font-semibold">2.8 kW</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <div class="flex items-center space-x-3">
+                                <div class="text-green-500">
+                                    <i class="fas fa-battery-three-quarters text-2xl"></i>
+                                </div>
+                                <div>
+                                    <p class="text-sm text-gray-500">Batterie</p>
+                                    <p class="text-xl font-semibold">85%</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <div class="flex items-center space-x-3">
+                                <div class="text-purple-500">
+                                    <i class="fas fa-exchange-alt text-2xl"></i>
+                                </div>
+                                <div>
+                                    <p class="text-sm text-gray-500">Netzeinspeisung</p>
+                                    <p class="text-xl font-semibold">1.4 kW</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Energy Flow Diagram -->
+                <div class="bg-white p-6 rounded-lg shadow-sm">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Energiefluss</h3>
+                    <canvas id="energyFlow" height="200"></canvas>
+                </div>
+            </div>
+
+            <!-- Right Column -->
+            <div class="space-y-6">
+                <!-- Real-time Chart -->
+                <div class="bg-white p-6 rounded-lg shadow-sm">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Echtzeit-Verlauf</h3>
+                    <canvas id="realtimeChart" height="300"></canvas>
+                </div>
+
+                <!-- System Status -->
+                <div class="bg-white p-6 rounded-lg shadow-sm">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Systemstatus</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                            <div class="flex items-center space-x-3">
+                                <i class="fas fa-wifi text-green-500"></i>
+                                <span>Verbindung</span>
+                            </div>
+                            <span class="text-green-500">Online</span>
+                        </div>
+                        <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                            <div class="flex items-center space-x-3">
+                                <i class="fas fa-microchip text-green-500"></i>
+                                <span>Wechselrichter</span>
+                            </div>
+                            <span class="text-green-500">Normal</span>
+                        </div>
+                        <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                            <div class="flex items-center space-x-3">
+                                <i class="fas fa-thermometer-half text-green-500"></i>
+                                <span>Temperatur</span>
+                            </div>
+                            <span>42°C</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white">
+        <div class="max-w-7xl mx-auto px-4 py-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                <div class="space-y-3">
+                    <h3 class="text-base font-bold text-orange-500">power4you</h3>
+                    <p class="text-sm text-gray-400">Innovative Energielösungen für eine nachhaltige Zukunft</p>
+                </div>
+                <div>
+                    <h3 class="text-base font-semibold mb-2">Quick Links</h3>
+                    <ul class="space-y-1 text-sm">
+                        <li><a href="#" class="text-gray-400 hover:text-white">Über uns</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Karriere</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">FAQ</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-base font-semibold mb-2">Rechtliches</h3>
+                    <ul class="space-y-1 text-sm">
+                        <li><a href="#" class="text-gray-400 hover:text-white">Impressum</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Datenschutz</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">AGB</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-base font-semibold mb-2">Kontakt</h3>
+                    <ul class="space-y-1 text-sm text-gray-400">
+                        <li class="flex items-center space-x-2">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Musterstraße 123, 12345 Stadt</span>
+                        </li>
+                        <li class="flex items-center space-x-2">
+                            <i class="fas fa-envelope"></i>
+                            <span>info@power4you.de</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-6 pt-6 text-center text-sm text-gray-400">
+                <p>&copy; 2024 power4you. Alle Rechte vorbehalten.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Realtime Chart
+        const realtimeCtx = document.getElementById('realtimeChart').getContext('2d');
+        const realtimeChart = new Chart(realtimeCtx, {
+            type: 'line',
+            data: {
+                labels: ['12:00', '12:05', '12:10', '12:15', '12:20', '12:25', '12:30'],
+                datasets: [{
+                    label: 'Solarleistung',
+                    data: [4.2, 4.3, 4.1, 4.4, 4.2, 4.3, 4.2],
+                    borderColor: '#f97316',
+                    tension: 0.4,
+                    fill: false
+                }, {
+                    label: 'Verbrauch',
+                    data: [2.8, 2.7, 2.9, 2.8, 2.6, 2.7, 2.8],
+                    borderColor: '#3b82f6',
+                    tension: 0.4,
+                    fill: false
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'top'
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'kW'
+                        }
+                    }
+                }
+            }
+        });
+
+        // Energy Flow Chart (Doughnut)
+        const energyFlowCtx = document.getElementById('energyFlow').getContext('2d');
+        const energyFlowChart = new Chart(energyFlowCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Eigenverbrauch', 'Batterieladung', 'Netzeinspeisung'],
+                datasets: [{
+                    data: [2.8, 0.8, 0.6],
+                    backgroundColor: ['#3b82f6', '#22c55e', '#8b5cf6']
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    }
+                }
+            }
+        });
+
+        // Installation selector change handler
+        document.getElementById('installation').addEventListener('change', function(e) {
+            // Here you would typically fetch new data for the selected installation
+            console.log('Selected installation:', e.target.value);
+        });
+
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        let isMenuOpen = false;
+
+        mobileMenuButton.addEventListener('click', () => {
+            isMenuOpen = !isMenuOpen;
+            
+            // Toggle menu visibility
+            mobileMenu.classList.toggle('hidden');
+            
+            // Change burger icon to X when menu is open
+            const icon = mobileMenuButton.querySelector('i');
+            if (isMenuOpen) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!mobileMenuButton.contains(e.target) && !mobileMenu.contains(e.target) && !isMenuOpen) {
+                mobileMenu.classList.add('hidden');
+                const icon = mobileMenuButton.querySelector('i');
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+                isMenuOpen = false;
+            }
+        });
+    </script>
+</body>
+</html> 
