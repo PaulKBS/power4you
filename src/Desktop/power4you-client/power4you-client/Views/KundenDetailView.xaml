@@ -10,13 +10,11 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <!-- Header mit Zurück-Button -->
         <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
-            <Button Content="Zurück" Padding="10" Margin="0,0,10,0" Click="BackButton_Click"/>
+            <Button Content="Zurueck" Padding="10" Margin="0,0,10,0" Click="BackButton_Click" />
             <TextBlock Text="Kundendetails" FontSize="24" FontWeight="Bold" VerticalAlignment="Center"/>
         </StackPanel>
 
-        <!-- Detailansicht -->
         <StackPanel Grid.Row="1" Orientation="Vertical">
             <TextBlock Text="Vorname" FontWeight="Bold" Margin="0,5"/>
             <TextBox x:Name="VornameTextBox" IsReadOnly="True" Margin="0,0,0,10"/>
@@ -30,7 +28,7 @@
             <TextBlock Text="Telefon" FontWeight="Bold" Margin="0,5"/>
             <TextBox x:Name="TelefonTextBox" IsReadOnly="True" Margin="0,0,0,10"/>
 
-            <TextBlock Text="Straße" FontWeight="Bold" Margin="0,5"/>
+            <TextBlock Text="Strasse" FontWeight="Bold" Margin="0,5"/>
             <TextBox x:Name="StrasseTextBox" IsReadOnly="True" Margin="0,0,0,10"/>
 
             <TextBlock Text="Hausnummer" FontWeight="Bold" Margin="0,5"/>

@@ -19,7 +19,7 @@ namespace power4you_client
 
         private void KundenButton_Click(object sender, RoutedEventArgs e)
         {
-            MainFrame.Navigate(new KundenAnlageView());
+            MainFrame.Navigate(new KundenDetailView());
         }
 
         private void AnlagenButton_Click(object sender, RoutedEventArgs e)
