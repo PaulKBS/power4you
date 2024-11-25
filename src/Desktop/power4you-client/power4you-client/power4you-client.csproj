@@ -94,13 +94,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Models\Kunde.cs" />
+    <Compile Include="Services\DemoKundenService.cs" />
+    <Compile Include="Services\IKundenService.cs" />
     <Compile Include="Views\DashboardView.xaml.cs">
       <DependentUpon>DashboardView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\KundenAnlageView.xaml.cs">
       <DependentUpon>KundenAnlageView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SolarModulTyp.cs" />
+    <Compile Include="Models\SolarModulTyp.cs" />
+    <Compile Include="Views\KundenView.xaml.cs">
+      <DependentUpon>KundenView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\SolarModulTypDialog.xaml.cs">
       <DependentUpon>SolarModulTypDialog.xaml</DependentUpon>
     </Compile>
@@ -133,6 +139,10 @@
     <Page Include="Views\KundenAnlageView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\KundenView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\SolarModulTypDialog.xaml">
       <SubType>Designer</SubType>
