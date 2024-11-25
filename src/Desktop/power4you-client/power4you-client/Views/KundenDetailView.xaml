@@ -1,9 +1,14 @@
-<UserControl x:Class="power4you_client.Views.KundenDetailView"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:mc="http://schemas.microsoft.com/markup-compatibility/2006"
-             Background="#F5F5F5" d:DesignHeight="721.383" d:DesignWidth="782.773">
+<UserControl x:Class="power4you_client.LoginWindow"
+        xmlns:emoji="clr-namespace:Emoji.Wpf;assembly=Emoji.Wpf"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:power4you_client"
+        mc:Ignorable="d"
+        Height="492" 
+        Width="382"
+        Background="#F5F5F5">
 
     <UserControl.Resources>
         <!-- Einheitliche Stile -->
@@ -42,7 +47,7 @@
                 <RowDefinition Height="*"/>
                 <!-- Inhalte -->
                 <RowDefinition Height="Auto"/>
-                <!-- Footer (Zurück-Button) -->
+                <!-- Footer (Zurueck-Button) -->
             </Grid.RowDefinitions>
 
             <!-- Header -->
@@ -79,7 +84,7 @@
                     <TextBlock Text="Telefon" Margin="0,5,0,0"/>
 
                     <TextBox x:Name="StrasseTextBox" IsReadOnly="True" Margin="0,10,0,5" />
-                    <TextBlock Text="Straße" Margin="0,5,0,0"/>
+                    <TextBlock Text="Strasse" Margin="0,5,0,0"/>
 
                     <TextBox x:Name="HausnummerTextBox" IsReadOnly="True" Margin="0,10,0,5" />
                     <TextBlock Text="Hausnummer" Margin="0,5,0,0"/>
@@ -94,7 +99,7 @@
 
             <!-- Footer -->
             <StackPanel Grid.Row="2" HorizontalAlignment="Center" Margin="0,20,0,0">
-                <Button Content="Zurück" Padding="10,0" Click="BackButton_Click" />
+                <Button Content="Zurueck" Padding="10,0" Click="BackButton_Click" />
             </StackPanel>
         </Grid>
     </Border>
