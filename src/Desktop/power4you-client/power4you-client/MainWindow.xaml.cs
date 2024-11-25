@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using power4you_client.Services;
 using power4you_client.Views;
 
 namespace power4you_client
@@ -19,7 +20,8 @@ namespace power4you_client
 
         private void KundenButton_Click(object sender, RoutedEventArgs e)
         {
-            MainFrame.Navigate(new KundenAnlageView());
+            var kundenService = new DemoKundenService(); // Replace with your actual service implementation
+            MainFrame.Navigate(new KundenView(kundenService));
         }
 
         private void AnlagenButton_Click(object sender, RoutedEventArgs e)
