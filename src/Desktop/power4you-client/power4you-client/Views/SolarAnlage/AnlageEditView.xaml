@@ -1,0 +1,187 @@
+<UserControl x:Class="power4you_client.Views.SolarAnlage.AnlageEditView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" 
+             d:DesignHeight="650" d:DesignWidth="950"
+             Background="{DynamicResource MaterialDesignBackground}">
+
+    <UserControl.Resources>
+        <Storyboard x:Key="FormFadeIn">
+            <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                            From="0" To="1" Duration="0:0:0.3"/>
+            <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)"
+                            From="-30" To="0" Duration="0:0:0.3">
+                <DoubleAnimation.EasingFunction>
+                    <CubicEase EasingMode="EaseOut"/>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+        </Storyboard>
+    </UserControl.Resources>
+
+    <Grid Margin="20">
+        <Grid.RenderTransform>
+            <TranslateTransform/>
+        </Grid.RenderTransform>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <Grid Grid.Row="0" Margin="0,0,0,20">
+            <StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <materialDesign:PackIcon Kind="SolarPower" 
+                                           Width="32" 
+                                           Height="32"
+                                           VerticalAlignment="Center"
+                                           Foreground="{DynamicResource PrimaryHueMidBrush}"/>
+                    <TextBlock x:Name="HeaderText"
+                             Text="Neue Anlage"
+                             FontSize="24" 
+                             FontWeight="Medium"
+                             Margin="16,0,0,0"
+                             VerticalAlignment="Center"/>
+                </StackPanel>
+                <TextBlock Text="Bitte füllen Sie alle erforderlichen Felder aus" 
+                         FontSize="14" 
+                         HorizontalAlignment="Center"
+                         Opacity="0.7"
+                         Margin="0,8,0,0"/>
+            </StackPanel>
+        </Grid>
+
+        <!-- Form Content -->
+        <ScrollViewer Grid.Row="1" 
+                     VerticalScrollBarVisibility="Auto"
+                     Margin="0,0,0,20">
+            <StackPanel>
+                <!-- Anlagen Details -->
+                <materialDesign:Card Margin="0,0,0,20">
+                    <StackPanel Margin="16">
+                        <TextBlock Text="Anlagen Details"
+                                 Style="{StaticResource MaterialDesignHeadline6TextBlock}"
+                                 Margin="0,0,0,16"/>
+
+                        <TextBox x:Name="NameTextBox"
+                                Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                materialDesign:HintAssist.Hint="Name der Anlage"
+                                Margin="0,8"/>
+
+                        <ComboBox x:Name="KundenComboBox"
+                                Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                                materialDesign:HintAssist.Hint="Kunde auswählen"
+                                Margin="0,8"/>
+
+                        <DatePicker x:Name="InstallationsDatumPicker"
+                                  Style="{StaticResource MaterialDesignOutlinedDatePicker}"
+                                  materialDesign:HintAssist.Hint="Installationsdatum"
+                                  Margin="0,8"/>
+
+                        <TextBox x:Name="StandortTextBox"
+                                Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                materialDesign:HintAssist.Hint="Standort der Anlage"
+                                materialDesign:TextFieldAssist.PrefixText=""
+                                Margin="0,8"/>
+                    </StackPanel>
+                </materialDesign:Card>
+
+                <!-- Module -->
+                <materialDesign:Card>
+                    <StackPanel Margin="16">
+                        <TextBlock Text="Module"
+                                 Style="{StaticResource MaterialDesignHeadline6TextBlock}"
+                                 Margin="0,0,0,16"/>
+
+                        <Grid Margin="0,0,0,16">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="120"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <ComboBox x:Name="ModulTypComboBox"
+                                    Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                                    materialDesign:HintAssist.Hint="Modultyp auswählen"
+                                    Margin="0,0,8,0"/>
+
+                            <TextBox x:Name="ModulAnzahlTextBox"
+                                   Grid.Column="1"
+                                   Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                   materialDesign:HintAssist.Hint="Anzahl"
+                                   Margin="0,0,8,0"/>
+
+                            <Button Grid.Column="2"
+                                    Style="{StaticResource MaterialDesignFlatButton}"
+                                    Click="AddModul_Click">
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon Kind="Plus" 
+                                                           Margin="0,0,8,0"/>
+                                    <TextBlock Text="Hinzufügen"/>
+                                </StackPanel>
+                            </Button>
+                        </Grid>
+
+                        <materialDesign:Card UniformCornerRadius="4"
+                                          Background="{DynamicResource MaterialDesignBackground}"
+                                          materialDesign:ElevationAssist.Elevation="Dp1">
+                            <DataGrid x:Name="ModuleDataGrid"
+                                    AutoGenerateColumns="False"
+                                    IsReadOnly="True"
+                                    Style="{StaticResource MaterialDesignDataGrid}"
+                                    MinHeight="200"
+                                    MaxHeight="300">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Modultyp" 
+                                                      Binding="{Binding Bezeichnung}" 
+                                                      Width="*"/>
+                                    <DataGridTextColumn Header="Leistung" 
+                                                      Binding="{Binding Pmpp, StringFormat={}{0} W}" 
+                                                      Width="100"/>
+                                    <DataGridTemplateColumn Width="Auto">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Button Style="{StaticResource MaterialDesignIconButton}"
+                                                        Click="RemoveModul_Click">
+                                                    <materialDesign:PackIcon Kind="Delete"/>
+                                                </Button>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </materialDesign:Card>
+
+                        <TextBlock Margin="0,16,0,0" 
+                                 Style="{StaticResource MaterialDesignBody1TextBlock}">
+                            <Run Text="Gesamtleistung: "/>
+                            <Run x:Name="GesamtleistungRun" 
+                                 Text="0" 
+                                 FontWeight="Medium"
+                                 Foreground="{DynamicResource PrimaryHueMidBrush}"/>
+                            <Run Text=" kWp"/>
+                        </TextBlock>
+                    </StackPanel>
+                </materialDesign:Card>
+            </StackPanel>
+        </ScrollViewer>
+
+        <!-- Actions -->
+        <StackPanel Grid.Row="2" 
+                  Orientation="Horizontal" 
+                  HorizontalAlignment="Right">
+            <Button Style="{StaticResource MaterialDesignOutlinedButton}"
+                    Content="Abbrechen"
+                    Margin="0,0,8,0"
+                    Click="CancelButton_Click"/>
+            <Button Style="{StaticResource MaterialDesignFlatButton}"
+                    Content="Speichern"
+                    x:Name="SaveButton"
+                    Click="SaveButton_Click"/>
+        </StackPanel>
+    </Grid>
+</UserControl> 

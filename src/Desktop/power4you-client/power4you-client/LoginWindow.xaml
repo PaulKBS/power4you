@@ -63,7 +63,7 @@
                 <!-- Logo -->
 
              
-                <emoji:TextBlock FontSize="24" FontWeight="Bold" HorizontalAlignment="Center" Text="power4you 🔥"/>
+                <emoji:TextBlock FontSize="24" FontWeight="Bold" HorizontalAlignment="Center" Text="power4you🔥"/>
 
                 <TextBlock Text="Bitte loggen Sie sich ein" 
                          FontSize="14" 
