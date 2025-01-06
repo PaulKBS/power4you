@@ -8,8 +8,7 @@
              xmlns:oxy="http://oxyplot.org/wpf"
              mc:Ignorable="d" 
              d:DesignHeight="650" d:DesignWidth="950"
-             Background="{DynamicResource MaterialDesignBackground}"
-             >
+             Background="{DynamicResource MaterialDesignBackground}">
 
     <UserControl.Resources>
         <!-- Animation for cards -->
@@ -158,7 +157,7 @@
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
-                            
+
                             <TextBlock Text="Top Anlagen" 
                                      FontSize="16"
                                      FontWeight="Medium"
@@ -175,7 +174,7 @@
                                              Text="24,2 kW"
                                              FontWeight="Medium"/>
                                 </Grid>
-                                
+
                                 <Grid Margin="0,4">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*"/>
@@ -186,7 +185,7 @@
                                              Text="18,7 kW"
                                              FontWeight="Medium"/>
                                 </Grid>
-                                
+
                                 <Grid Margin="0,4">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*"/>
@@ -209,7 +208,7 @@
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
-                            
+
                             <TextBlock Text="Performance" 
                                       FontSize="16"
                                       FontWeight="Medium"
@@ -265,68 +264,35 @@
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
-                            
+
                             <TextBlock Text="Wettervorhersage" 
                                      FontSize="16"
                                      FontWeight="Medium"
                                      Margin="0,0,0,16"/>
 
-                            <StackPanel Grid.Row="1">
-                                <Grid Margin="0,4">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto"/>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="Auto"/>
-                                    </Grid.ColumnDefinitions>
-                                    <materialDesign:PackIcon Kind="WeatherSunny" 
-                                                           Width="24" 
-                                                           Height="24"
-                                                           Margin="0,0,8,0"/>
-                                    <TextBlock Grid.Column="1" 
-                                             Text="Heute"/>
-                                    <TextBlock Grid.Column="2" 
-                                             Text="24°C"
-                                             FontWeight="Medium"/>
-                                </Grid>
-                                
-                                <Grid Margin="0,4">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto"/>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="Auto"/>
-                                    </Grid.ColumnDefinitions>
-                                    <materialDesign:PackIcon Kind="WeatherPartlyCloudy" 
-                                                           Width="24" 
-                                                           Height="24"
-                                                           Margin="0,0,8,0"/>
-                                    <TextBlock Grid.Column="1" 
-                                             Text="Morgen"/>
-                                    <TextBlock Grid.Column="2" 
-                                             Text="22°C"
-                                             FontWeight="Medium"/>
-                                </Grid>
-                                
-                                <Grid Margin="0,4">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto"/>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="Auto"/>
-                                    </Grid.ColumnDefinitions>
-                                    <materialDesign:PackIcon Kind="WeatherCloudy" 
-                                                           Width="24" 
-                                                           Height="24"
-                                                           Margin="0,0,8,0"/>
-                                    <TextBlock Grid.Column="1" 
-                                             Text="Übermorgen"/>
-                                    <TextBlock Grid.Column="2" 
-                                             Text="20°C"
-                                             FontWeight="Medium"/>
-                                </Grid>
-                            </StackPanel>
+                            <ItemsControl Grid.Row="1" ItemsSource="{Binding WeatherForecast}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid Margin="0,4">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Image Source="{Binding Icon}" Width="24" Height="24" Margin="0,0,8,0"/>
+                                            <StackPanel Grid.Column="1">
+                                                <TextBlock Text="{Binding Day}"/>
+                                                <TextBlock Text="{Binding Description}" FontSize="12" Opacity="0.7"/>
+                                            </StackPanel>
+                                            <TextBlock Grid.Column="2" Text="{Binding Temperature}" FontWeight="Medium"/>
+                                        </Grid>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
                         </Grid>
                     </materialDesign:Card>
                 </StackPanel>
             </Grid>
         </Grid>
     </ScrollViewer>
-</UserControl> 
+</UserControl>
