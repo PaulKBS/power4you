@@ -47,18 +47,6 @@
                         </Storyboard>
                     </BeginStoryboard>
                 </EventTrigger>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Panel.ZIndex" Value="1"/>
-                    <Setter Property="materialDesign:ElevationAssist.Elevation" Value="4"/>
-                    <Setter Property="RenderTransform">
-                        <Setter.Value>
-                            <TransformGroup>
-                                <ScaleTransform ScaleX="1.02" ScaleY="1.02"/>
-                                <TranslateTransform/>
-                            </TransformGroup>
-                        </Setter.Value>
-                    </Setter>
-                </Trigger>
             </Style.Triggers>
         </Style>
     </UserControl.Resources>
@@ -156,7 +144,7 @@
                         <oxy:PlotView DockPanel.Dock="Bottom"
                                       Model="{Binding PlotModel}"
                                       Background="Transparent"
-                                      Margin="0,16,0,0"/>
+                                      Margin="0,16,0,0" />
                     </DockPanel>
                 </materialDesign:Card>
 
