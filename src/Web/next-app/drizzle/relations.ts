@@ -1,21 +1,37 @@
 import { relations } from "drizzle-orm/relations";
-import { user, rezepte, zutaten } from "./schema";
+import { user, kunde, solarmodul, leistung, solarmodultyp } from "./schema";
 
-export const rezepteRelations = relations(rezepte, ({one, many}) => ({
+export const kundeRelations = relations(kunde, ({one, many}) => ({
 	user: one(user, {
-		fields: [rezepte.userId],
+		fields: [kunde.userId],
 		references: [user.userId]
 	}),
-	zutatens: many(zutaten),
+	solarmoduls: many(solarmodul),
 }));
 
 export const userRelations = relations(user, ({many}) => ({
-	rezeptes: many(rezepte),
+	kundes: many(kunde),
 }));
 
-export const zutatenRelations = relations(zutaten, ({one}) => ({
-	rezepte: one(rezepte, {
-		fields: [zutaten.rezeptId],
-		references: [rezepte.rezeptId]
+export const leistungRelations = relations(leistung, ({one}) => ({
+	solarmodul: one(solarmodul, {
+		fields: [leistung.modulnummer],
+		references: [solarmodul.modulnummer]
 	}),
+}));
+
+export const solarmodulRelations = relations(solarmodul, ({one, many}) => ({
+	leistungs: many(leistung),
+	solarmodultyp: one(solarmodultyp, {
+		fields: [solarmodul.solarmodultypnummer],
+		references: [solarmodultyp.solarmodultypnummer]
+	}),
+	kunde: one(kunde, {
+		fields: [solarmodul.kundennummer],
+		references: [kunde.kundennummer]
+	}),
+}));
+
+export const solarmodultypRelations = relations(solarmodultyp, ({many}) => ({
+	solarmoduls: many(solarmodul),
 }));

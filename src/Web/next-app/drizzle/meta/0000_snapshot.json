@@ -4,41 +4,76 @@
   "version": "5",
   "dialect": "mysql",
   "tables": {
-    "rezepte": {
-      "name": "rezepte",
+    "Kunde": {
+      "name": "Kunde",
       "columns": {
-        "rezept_id": {
+        "Kundennummer": {
           "autoincrement": true,
-          "name": "rezept_id",
+          "name": "Kundennummer",
           "type": "int(11)",
           "primaryKey": false,
           "notNull": true
         },
-        "user_id": {
+        "User_ID": {
           "autoincrement": false,
-          "name": "user_id",
+          "name": "User_ID",
           "type": "int(11)",
           "primaryKey": false,
           "notNull": true
         },
-        "title": {
+        "Vorname": {
           "autoincrement": false,
-          "name": "title",
+          "name": "Vorname",
           "type": "varchar(255)",
           "primaryKey": false,
           "notNull": true
         },
-        "image": {
+        "Nachname": {
           "autoincrement": false,
-          "name": "image",
+          "name": "Nachname",
           "type": "varchar(255)",
           "primaryKey": false,
           "notNull": true
         },
-        "text": {
+        "Strasse": {
           "autoincrement": false,
-          "name": "text",
-          "type": "text",
+          "name": "Strasse",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Hausnummer": {
+          "autoincrement": false,
+          "name": "Hausnummer",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Postleitzahl": {
+          "autoincrement": false,
+          "name": "Postleitzahl",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Ort": {
+          "autoincrement": false,
+          "name": "Ort",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Email": {
+          "autoincrement": false,
+          "name": "Email",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Telefonnummer": {
+          "autoincrement": false,
+          "name": "Telefonnummer",
+          "type": "varchar(255)",
           "primaryKey": false,
           "notNull": true
         }
@@ -46,44 +81,192 @@
       "compositePrimaryKeys": {},
       "indexes": {},
       "foreignKeys": {
-        "user_id_fk": {
-          "name": "user_id_fk",
-          "tableFrom": "rezepte",
-          "tableTo": "user",
+        "Kunde_ibfk_1": {
+          "name": "Kunde_ibfk_1",
+          "tableFrom": "Kunde",
+          "tableTo": "User",
           "columnsFrom": [
-            "user_id"
+            "User_ID"
           ],
           "columnsTo": [
-            "user_id"
+            "User_ID"
           ],
-          "onDelete": "cascade",
-          "onUpdate": "cascade"
+          "onDelete": "restrict",
+          "onUpdate": "restrict"
+        }
+      },
+      "uniqueConstraints": {
+        "User_ID": {
+          "name": "User_ID",
+          "columns": [
+            "User_ID"
+          ]
+        }
+      },
+      "checkConstraint": {}
+    },
+    "Leistung": {
+      "name": "Leistung",
+      "columns": {
+        "Timestamp": {
+          "default": "'current_timestamp()'",
+          "autoincrement": false,
+          "name": "Timestamp",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Modulnummer": {
+          "autoincrement": false,
+          "name": "Modulnummer",
+          "type": "int(11)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Power_Out": {
+          "autoincrement": false,
+          "name": "Power_Out",
+          "type": "int(11)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "compositePrimaryKeys": {},
+      "indexes": {
+        "Modulnummer_FK": {
+          "name": "Modulnummer_FK",
+          "columns": [
+            "Modulnummer"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {
+        "Leistung_ibfk_1": {
+          "name": "Leistung_ibfk_1",
+          "tableFrom": "Leistung",
+          "tableTo": "Solarmodul",
+          "columnsFrom": [
+            "Modulnummer"
+          ],
+          "columnsTo": [
+            "Modulnummer"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "restrict"
         }
       },
       "uniqueConstraints": {},
       "checkConstraint": {}
     },
-    "user": {
-      "name": "user",
+    "Solarmodul": {
+      "name": "Solarmodul",
       "columns": {
-        "user_id": {
+        "Modulnummer": {
           "autoincrement": true,
-          "name": "user_id",
+          "name": "Modulnummer",
           "type": "int(11)",
           "primaryKey": false,
           "notNull": true
         },
-        "username": {
+        "Solarmodultypnummer": {
           "autoincrement": false,
-          "name": "username",
-          "type": "varchar(255)",
+          "name": "Solarmodultypnummer",
+          "type": "int(11)",
           "primaryKey": false,
           "notNull": true
         },
-        "password": {
+        "Kundennummer": {
           "autoincrement": false,
-          "name": "password",
-          "type": "varchar(255)",
+          "name": "Kundennummer",
+          "type": "int(11)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "compositePrimaryKeys": {},
+      "indexes": {
+        "Kundennummer": {
+          "name": "Kundennummer",
+          "columns": [
+            "Kundennummer"
+          ],
+          "isUnique": false
+        },
+        "Solarmodultypnummer": {
+          "name": "Solarmodultypnummer",
+          "columns": [
+            "Solarmodultypnummer"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {
+        "Solarmodul_ibfk_2": {
+          "name": "Solarmodul_ibfk_2",
+          "tableFrom": "Solarmodul",
+          "tableTo": "Solarmodultyp",
+          "columnsFrom": [
+            "Solarmodultypnummer"
+          ],
+          "columnsTo": [
+            "Solarmodultypnummer"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "restrict"
+        },
+        "Solarmodul_ibfk_3": {
+          "name": "Solarmodul_ibfk_3",
+          "tableFrom": "Solarmodul",
+          "tableTo": "Kunde",
+          "columnsFrom": [
+            "Kundennummer"
+          ],
+          "columnsTo": [
+            "Kundennummer"
+          ],
+          "onDelete": "restrict",
+          "onUpdate": "restrict"
+        }
+      },
+      "uniqueConstraints": {},
+      "checkConstraint": {}
+    },
+    "Solarmodultyp": {
+      "name": "Solarmodultyp",
+      "columns": {
+        "Solarmodultypnummer": {
+          "autoincrement": true,
+          "name": "Solarmodultypnummer",
+          "type": "int(11)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Bezeichnung": {
+          "autoincrement": false,
+          "name": "Bezeichnung",
+          "type": "varchar(64)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Umpp": {
+          "autoincrement": false,
+          "name": "Umpp",
+          "type": "float",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Impp": {
+          "autoincrement": false,
+          "name": "Impp",
+          "type": "float",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Pmpp": {
+          "autoincrement": false,
+          "name": "Pmpp",
+          "type": "float",
           "primaryKey": false,
           "notNull": true
         }
@@ -94,56 +277,41 @@
       "uniqueConstraints": {},
       "checkConstraint": {}
     },
-    "zutaten": {
-      "name": "zutaten",
+    "User": {
+      "name": "User",
       "columns": {
-        "zutat_id": {
+        "User_ID": {
           "autoincrement": true,
-          "name": "zutat_id",
+          "name": "User_ID",
           "type": "int(11)",
           "primaryKey": false,
           "notNull": true
         },
-        "rezept_id": {
+        "Username": {
           "autoincrement": false,
-          "name": "rezept_id",
-          "type": "int(11)",
+          "name": "Username",
+          "type": "varchar(255)",
           "primaryKey": false,
           "notNull": true
         },
-        "zutat": {
+        "Password": {
           "autoincrement": false,
-          "name": "zutat",
+          "name": "Password",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Api_key": {
+          "autoincrement": false,
+          "name": "Api_key",
           "type": "varchar(255)",
           "primaryKey": false,
           "notNull": true
         }
       },
       "compositePrimaryKeys": {},
-      "indexes": {
-        "rezept_id": {
-          "name": "rezept_id",
-          "columns": [
-            "rezept_id"
-          ],
-          "isUnique": false
-        }
-      },
-      "foreignKeys": {
-        "zutaten_ibfk_1": {
-          "name": "zutaten_ibfk_1",
-          "tableFrom": "zutaten",
-          "tableTo": "rezepte",
-          "columnsFrom": [
-            "rezept_id"
-          ],
-          "columnsTo": [
-            "rezept_id"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "cascade"
-        }
-      },
+      "indexes": {},
+      "foreignKeys": {},
       "uniqueConstraints": {},
       "checkConstraint": {}
     }
