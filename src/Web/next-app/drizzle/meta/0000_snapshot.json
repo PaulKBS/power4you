@@ -1,0 +1,161 @@
+{
+  "id": "00000000-0000-0000-0000-000000000000",
+  "prevId": "",
+  "version": "5",
+  "dialect": "mysql",
+  "tables": {
+    "rezepte": {
+      "name": "rezepte",
+      "columns": {
+        "rezept_id": {
+          "autoincrement": true,
+          "name": "rezept_id",
+          "type": "int(11)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "user_id": {
+          "autoincrement": false,
+          "name": "user_id",
+          "type": "int(11)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "title": {
+          "autoincrement": false,
+          "name": "title",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "image": {
+          "autoincrement": false,
+          "name": "image",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "text": {
+          "autoincrement": false,
+          "name": "text",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "compositePrimaryKeys": {},
+      "indexes": {},
+      "foreignKeys": {
+        "user_id_fk": {
+          "name": "user_id_fk",
+          "tableFrom": "rezepte",
+          "tableTo": "user",
+          "columnsFrom": [
+            "user_id"
+          ],
+          "columnsTo": [
+            "user_id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "cascade"
+        }
+      },
+      "uniqueConstraints": {},
+      "checkConstraint": {}
+    },
+    "user": {
+      "name": "user",
+      "columns": {
+        "user_id": {
+          "autoincrement": true,
+          "name": "user_id",
+          "type": "int(11)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "username": {
+          "autoincrement": false,
+          "name": "username",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "password": {
+          "autoincrement": false,
+          "name": "password",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "compositePrimaryKeys": {},
+      "indexes": {},
+      "foreignKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraint": {}
+    },
+    "zutaten": {
+      "name": "zutaten",
+      "columns": {
+        "zutat_id": {
+          "autoincrement": true,
+          "name": "zutat_id",
+          "type": "int(11)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "rezept_id": {
+          "autoincrement": false,
+          "name": "rezept_id",
+          "type": "int(11)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "zutat": {
+          "autoincrement": false,
+          "name": "zutat",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "compositePrimaryKeys": {},
+      "indexes": {
+        "rezept_id": {
+          "name": "rezept_id",
+          "columns": [
+            "rezept_id"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {
+        "zutaten_ibfk_1": {
+          "name": "zutaten_ibfk_1",
+          "tableFrom": "zutaten",
+          "tableTo": "rezepte",
+          "columnsFrom": [
+            "rezept_id"
+          ],
+          "columnsTo": [
+            "rezept_id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "cascade"
+        }
+      },
+      "uniqueConstraints": {},
+      "checkConstraint": {}
+    }
+  },
+  "views": {},
+  "_meta": {
+    "schemas": {},
+    "tables": {},
+    "columns": {}
+  },
+  "internal": {
+    "tables": {},
+    "indexes": {}
+  }
+}
