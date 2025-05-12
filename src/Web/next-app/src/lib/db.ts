@@ -1,9 +1,26 @@
 import { drizzle } from 'drizzle-orm/mysql2';
 import mysql from 'mysql2/promise';
-import * as schema from '../../drizzle/schema';
+import { sql } from 'drizzle-orm';
 
-// Create the connection
-const connection = await mysql.createConnection(process.env.DATABASE_URL!);
+// Create a database connection
+const connectionString = process.env.DATABASE_URL;
 
-// Create the drizzle client
-export const db = drizzle(connection, { schema, mode: 'default' }); 
+if (!connectionString) {
+  throw new Error('DATABASE_URL not found in environment variables');
+}
+
+// Create a connection pool for MySQL
+const pool = mysql.createPool({
+  uri: connectionString,
+  connectionLimit: 10,
+  waitForConnections: true,
+  queueLimit: 0,
+  enableKeepAlive: true,
+  keepAliveInitialDelay: 0,
+});
+
+// Initialize the Drizzle client
+export const db = drizzle(pool);
+
+// Simple SQL tag for raw queries
+export { sql }; 
