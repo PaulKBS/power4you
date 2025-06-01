@@ -12,11 +12,11 @@ if (!connectionString) {
 // Create a connection pool for MySQL
 const pool = mysql.createPool({
   uri: connectionString,
-  connectionLimit: 10,
   waitForConnections: true,
   queueLimit: 0,
   enableKeepAlive: true,
   keepAliveInitialDelay: 0,
+  connectionLimit: 1,
 });
 
 // Initialize the Drizzle client

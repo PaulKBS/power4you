@@ -20,7 +20,7 @@ export default function Footer() {
           <div>
             <h3 className="text-base font-semibold mb-2">Rechtliches</h3>
             <ul className="space-y-1 text-sm">
-              <li><Link href="#" className="text-gray-400 hover:text-white">Impressum</Link></li>
+              <li><Link href="/impressum" className="text-gray-400 hover:text-white">Impressum</Link></li>
               <li><Link href="#" className="text-gray-400 hover:text-white">Datenschutz</Link></li>
               <li><Link href="#" className="text-gray-400 hover:text-white">AGB</Link></li>
             </ul>
@@ -40,7 +40,7 @@ export default function Footer() {
           </div>
         </div>
         <div className="border-t border-gray-800 mt-6 pt-6 text-center text-sm text-gray-400">
-          <p>&copy; 2025 power4you. Alle Rechte vorbehalten.</p>
+          <p>&copy; {new Date().getFullYear()} power4you. Alle Rechte vorbehalten.</p>
         </div>
       </div>
     </footer>

@@ -81,8 +81,6 @@ export default function WeatherForecast() {
         
         // Get coordinates from customer address
         const { latitude, longitude } = await geocodeAddress(
-          data.strasse,
-          data.hausnummer,
           data.postleitzahl,
           data.ort
         );
@@ -162,27 +160,47 @@ export default function WeatherForecast() {
   };
   
   const processHourlyData = (hourlyData: HourlyWeatherData, selectedDate: string) => {
-    const startDate = new Date(selectedDate);
-    const endDate = new Date(selectedDate);
-    endDate.setDate(endDate.getDate() + 1);
+    console.log('Processing hourly data for date:', selectedDate);
+    console.log('Raw hourly data sample:', hourlyData.time.slice(0, 5));
 
-    const filteredData = hourlyData.time
-      .map((time: string, index: number) => {
-        const currentDate = new Date(time);
-        if (currentDate >= startDate && currentDate < endDate) {
-          return {
-            time: new Date(time).toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' }),
-            temperature: Math.round(hourlyData.temperature_2m[index]),
-            precipitation: hourlyData.precipitation[index],
-            humidity: hourlyData.relative_humidity_2m[index],
-            wind_speed: hourlyData.windspeed_10m[index]
-          };
-        }
-        return null;
-      })
-      .filter((item: HourlyData | null) => item !== null);
+    const filteredData: HourlyData[] = [];
 
-    setHourlyData(filteredData as HourlyData[]);
+    hourlyData.time.forEach((timeString: string, index: number) => {
+      // Parse the time string from the API (should be in format "2024-01-15T14:00")
+      const apiDate = new Date(timeString);
+      
+      // Get the date part in YYYY-MM-DD format from the API timestamp
+      // Since the API uses Europe/Berlin timezone, we need to handle this properly
+      const apiDateString = timeString.split('T')[0]; // Get date part directly from string
+      
+      // Check if this hour belongs to the selected date
+      if (apiDateString === selectedDate) {
+        // Format time as HH:MM in 24-hour format
+        const hour = apiDate.getHours().toString().padStart(2, '0');
+        const minute = apiDate.getMinutes().toString().padStart(2, '0');
+        const formattedTime = `${hour}:${minute}`;
+        
+        filteredData.push({
+          time: formattedTime,
+          temperature: Math.round(hourlyData.temperature_2m[index]),
+          precipitation: hourlyData.precipitation[index],
+          humidity: hourlyData.relative_humidity_2m[index],
+          wind_speed: hourlyData.windspeed_10m[index]
+        });
+      }
+    });
+
+    // Sort by time to ensure proper order (00:00 to 23:00)
+    filteredData.sort((a, b) => {
+      const timeA = a.time.split(':').map(Number);
+      const timeB = b.time.split(':').map(Number);
+      return timeA[0] - timeB[0] || timeA[1] - timeB[1];
+    });
+
+    console.log('Filtered hourly data count:', filteredData.length);
+    console.log('Time range:', filteredData.length > 0 ? `${filteredData[0].time} - ${filteredData[filteredData.length - 1].time}` : 'No data');
+    console.log('All times:', filteredData.map(d => d.time));
+    setHourlyData(filteredData);
   };
 
   // Map WMO weather codes to icons
@@ -580,11 +598,24 @@ export default function WeatherForecast() {
                 <ResponsiveContainer width="100%" height="100%">
                   <LineChart
                     data={hourlyData}
-                    margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+                    margin={{ top: 5, right: 30, left: 20, bottom: 25 }}
                   >
                     <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" />
-                    <XAxis dataKey="time" stroke="var(--muted-foreground)" />
-                    <YAxis unit="°C" stroke="var(--muted-foreground)" />
+                    <XAxis 
+                      dataKey="time" 
+                      stroke="var(--muted-foreground)"
+                      tick={{ fontSize: 11 }}
+                      interval={1}
+                      angle={-45}
+                      textAnchor="end"
+                      height={60}
+                    />
+                    <YAxis 
+                      unit="°C" 
+                      stroke="var(--muted-foreground)"
+                      tickCount={8}
+                      domain={['dataMin - 2', 'dataMax + 2']}
+                    />
                     <Tooltip 
                       contentStyle={{
                         backgroundColor: 'var(--card)',
@@ -609,11 +640,24 @@ export default function WeatherForecast() {
                 <ResponsiveContainer width="100%" height="100%">
                   <BarChart
                     data={hourlyData}
-                    margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+                    margin={{ top: 5, right: 30, left: 20, bottom: 25 }}
                   >
                     <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" />
-                    <XAxis dataKey="time" stroke="var(--muted-foreground)" />
-                    <YAxis unit="mm" stroke="var(--muted-foreground)" />
+                    <XAxis 
+                      dataKey="time" 
+                      stroke="var(--muted-foreground)"
+                      tick={{ fontSize: 11 }}
+                      interval={1}
+                      angle={-45}
+                      textAnchor="end"
+                      height={60}
+                    />
+                    <YAxis 
+                      unit="mm" 
+                      stroke="var(--muted-foreground)"
+                      tickCount={6}
+                      domain={[0, 'dataMax + 1']}
+                    />
                     <Tooltip 
                       contentStyle={{
                         backgroundColor: 'var(--card)',

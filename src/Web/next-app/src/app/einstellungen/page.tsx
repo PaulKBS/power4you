@@ -13,7 +13,7 @@ import { useForm, FieldErrors } from "react-hook-form";
 import { z } from "zod";
 import { Toaster } from "@/components/ui/sonner";
 import { toast } from "sonner";
-import { User, MapPin, Phone, Key, BookOpen } from 'lucide-react';
+import { User, BookOpen, Key } from 'lucide-react';
 import Link from 'next/link';
 
 // Define the form schema
@@ -180,19 +180,11 @@ export default function SettingsPage() {
         <CardContent>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit, onError)} className="space-y-6">
-              <Tabs defaultValue="personal" className="w-full">
-                <TabsList className="grid w-full grid-cols-4">
-                  <TabsTrigger value="personal" className="flex items-center gap-2">
+              <Tabs defaultValue="profile" className="w-full">
+                <TabsList className="grid w-full grid-cols-2">
+                  <TabsTrigger value="profile" className="flex items-center gap-2">
                     <User className="h-4 w-4" />
-                    Persönlich
-                  </TabsTrigger>
-                  <TabsTrigger value="address" className="flex items-center gap-2">
-                    <MapPin className="h-4 w-4" />
-                    Adresse
-                  </TabsTrigger>
-                  <TabsTrigger value="contact" className="flex items-center gap-2">
-                    <Phone className="h-4 w-4" />
-                    Kontakt
+                    Profil
                   </TabsTrigger>
                   <TabsTrigger value="api" className="flex items-center gap-2">
                     <Key className="h-4 w-4" />
@@ -200,7 +192,7 @@ export default function SettingsPage() {
                   </TabsTrigger>
                 </TabsList>
 
-                <TabsContent value="personal" className="space-y-6 mt-6">
+                <TabsContent value="profile" className="space-y-6 mt-6">
                   <div className="grid gap-6 md:grid-cols-2">
                     <FormField
                       control={form.control}
@@ -229,9 +221,36 @@ export default function SettingsPage() {
                       )}
                     />
                   </div>
-                </TabsContent>
-
-                <TabsContent value="address" className="space-y-6 mt-6">
+                  
+                  <div className="grid gap-6 md:grid-cols-2">
+                    <FormField
+                      control={form.control}
+                      name="email"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>E-Mail</FormLabel>
+                          <FormControl>
+                            <Input placeholder="Ihre E-Mail-Adresse" type="email" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="telefonnummer"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Telefonnummer</FormLabel>
+                          <FormControl>
+                            <Input placeholder="Ihre Telefonnummer" type="tel" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+                  
                   <div className="grid gap-6 md:grid-cols-2">
                     <FormField
                       control={form.control}
@@ -260,6 +279,7 @@ export default function SettingsPage() {
                       )}
                     />
                   </div>
+                  
                   <div className="grid gap-6 md:grid-cols-2">
                     <FormField
                       control={form.control}
@@ -282,37 +302,6 @@ export default function SettingsPage() {
                           <FormLabel>Ort</FormLabel>
                           <FormControl>
                             <Input placeholder="Ihr Ort" {...field} />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                  </div>
-                </TabsContent>
-
-                <TabsContent value="contact" className="space-y-6 mt-6">
-                  <div className="grid gap-6 md:grid-cols-2">
-                    <FormField
-                      control={form.control}
-                      name="email"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>E-Mail</FormLabel>
-                          <FormControl>
-                            <Input placeholder="Ihre E-Mail-Adresse" type="email" {...field} />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    <FormField
-                      control={form.control}
-                      name="telefonnummer"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Telefonnummer</FormLabel>
-                          <FormControl>
-                            <Input placeholder="Ihre Telefonnummer" type="tel" {...field} />
                           </FormControl>
                           <FormMessage />
                         </FormItem>

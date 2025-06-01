@@ -1,10 +1,8 @@
 import { NextResponse } from 'next/server';
-import { jwtVerify } from 'jose';
 import { db } from '@/lib/db';
 import { eq } from 'drizzle-orm';
 import { kunde } from '../../../../drizzle/schema';
-
-const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key';
+import { getUserIdFromRequest } from '@/lib/auth';
 
 /**
  * @swagger
@@ -16,6 +14,7 @@ const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key';
  *       - Customer
  *     security:
  *       - cookieAuth: []
+ *       - apiKey: []
  *     responses:
  *       200:
  *         description: Customer data successfully retrieved
@@ -54,59 +53,25 @@ const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key';
  */
 export async function GET(request: Request) {
   try {
-    // Parse the cookie from the request headers
-    const cookieHeader = request.headers.get('cookie') || '';
-    const cookies = Object.fromEntries(
-      cookieHeader.split('; ').map(c => {
-        const [name, ...value] = c.split('=');
-        return [name, value.join('=')];
-      })
-    );
-    const token = cookies['auth-token'];
+    // Authenticate request and get userId
+    const { userId, error } = await getUserIdFromRequest(request);
     
-    if (!token) {
+    if (error) {
+      return error;
+    }
+    
+    // Fetch customer data based on user ID
+    const customerData = await db.select().from(kunde).where(eq(kunde.userId, userId!));
+    
+    if (customerData.length === 0) {
       return NextResponse.json(
-        { message: 'Not authenticated' },
-        { status: 401 }
+        { message: 'No customer data found for this user' },
+        { status: 404 }
       );
     }
-
-    try {
-      // Verify the token
-      const { payload } = await jwtVerify(
-        token,
-        new TextEncoder().encode(JWT_SECRET)
-      );
-      
-      // Get the user ID from the token and ensure it's a number
-      const userId = Number(payload.userId);
-      
-      if (isNaN(userId)) {
-        return NextResponse.json(
-          { message: 'Invalid user ID' },
-          { status: 400 }
-        );
-      }
-      
-      // Fetch customer data based on user ID
-      const customerData = await db.select().from(kunde).where(eq(kunde.userId, userId));
-      
-      if (customerData.length === 0) {
-        return NextResponse.json(
-          { message: 'No customer data found for this user' },
-          { status: 404 }
-        );
-      }
-      
-      return NextResponse.json(customerData[0]);
-      
-    } catch (jwtError) {
-      console.error('JWT verification error:', jwtError);
-      return NextResponse.json(
-        { message: 'Invalid authentication token' },
-        { status: 401 }
-      );
-    }
+    
+    return NextResponse.json(customerData[0]);
+    
   } catch (error) {
     console.error('Error fetching customer data:', error);
     return NextResponse.json(
@@ -126,6 +91,7 @@ export async function GET(request: Request) {
  *       - Customer
  *     security:
  *       - cookieAuth: []
+ *       - apiKey: []
  *     requestBody:
  *       required: true
  *       content:
@@ -187,66 +153,32 @@ export async function GET(request: Request) {
  */
 export async function PUT(request: Request) {
   try {
-    // Parse the cookie from the request headers
-    const cookieHeader = request.headers.get('cookie') || '';
-    const cookies = Object.fromEntries(
-      cookieHeader.split('; ').map(c => {
-        const [name, ...value] = c.split('=');
-        return [name, value.join('=')];
-      })
-    );
-    const token = cookies['auth-token'];
+    // Authenticate request and get userId
+    const { userId, error } = await getUserIdFromRequest(request);
     
-    if (!token) {
-      return NextResponse.json(
-        { message: 'Not authenticated' },
-        { status: 401 }
-      );
+    if (error) {
+      return error;
     }
 
-    try {
-      // Verify the token
-      const { payload } = await jwtVerify(
-        token,
-        new TextEncoder().encode(JWT_SECRET)
-      );
-      
-      // Get the user ID from the token and ensure it's a number
-      const userId = Number(payload.userId);
-      
-      if (isNaN(userId)) {
-        return NextResponse.json(
-          { message: 'Invalid user ID' },
-          { status: 400 }
-        );
-      }
-
-      // Get the updated data from the request body
-      const updatedData = await request.json();
-      
-      // Update customer data
-      await db.update(kunde)
-        .set({
-          vorname: updatedData.vorname,
-          nachname: updatedData.nachname,
-          strasse: updatedData.strasse,
-          hausnummer: updatedData.hausnummer,
-          postleitzahl: updatedData.postleitzahl,
-          ort: updatedData.ort,
-          email: updatedData.email,
-          telefonnummer: updatedData.telefonnummer,
-        })
-        .where(eq(kunde.userId, userId));
-      
-      return NextResponse.json({ message: 'Customer data updated successfully' });
-      
-    } catch (jwtError) {
-      console.error('JWT verification error:', jwtError);
-      return NextResponse.json(
-        { message: 'Invalid authentication token' },
-        { status: 401 }
-      );
-    }
+    // Get the updated data from the request body
+    const updatedData = await request.json();
+    
+    // Update customer data
+    await db.update(kunde)
+      .set({
+        vorname: updatedData.vorname,
+        nachname: updatedData.nachname,
+        strasse: updatedData.strasse,
+        hausnummer: updatedData.hausnummer,
+        postleitzahl: updatedData.postleitzahl,
+        ort: updatedData.ort,
+        email: updatedData.email,
+        telefonnummer: updatedData.telefonnummer,
+      })
+      .where(eq(kunde.userId, userId!));
+    
+    return NextResponse.json({ message: 'Customer data updated successfully' });
+    
   } catch (error) {
     console.error('Error updating customer data:', error);
     return NextResponse.json(

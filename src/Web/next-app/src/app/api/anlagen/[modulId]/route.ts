@@ -8,10 +8,10 @@ const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key';
 
 export async function GET(
   request: Request,
-  { params }: { params: { modulId: string } }
+  { params }: { params: Promise<{ modulId: string }> }
 ) {
   try {
-    const modulId = parseInt(params.modulId);
+    const modulId = parseInt((await params).modulId);
     
     if (isNaN(modulId)) {
       return NextResponse.json(

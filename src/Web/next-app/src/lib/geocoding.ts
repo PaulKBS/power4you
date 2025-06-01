@@ -13,8 +13,6 @@ interface GeocodingResult {
  * @returns Promise with the geocoding result (latitude and longitude)
  */
 export async function geocodeAddress(
-  street: string,
-  houseNumber: string,
   postalCode: string,
   city: string,
   country: string = 'Germany'
@@ -22,8 +20,10 @@ export async function geocodeAddress(
   try {
     // Format the address for geocoding
     const addressQuery = encodeURIComponent(
-      `${street} ${houseNumber}, ${postalCode} ${city}, ${country}`
+      `${postalCode} ${city}, ${country}`
     );
+
+    console.log(addressQuery);
     
     // Call the Nominatim API (OpenStreetMap)
     const response = await fetch(

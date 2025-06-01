@@ -6,6 +6,8 @@ import { useAuth } from '@/contexts/AuthContext';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, ReferenceLine } from 'recharts';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import Image from 'next/image';
 
 // Types for the module and performance data
 interface SolarModule {
@@ -48,6 +50,7 @@ export default function ClientModulePage({ modulId }: ClientModulePageProps) {
   const [performanceData, setPerformanceData] = useState<PerformanceDataPoint[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [moduleImageOpen, setModuleImageOpen] = useState(false);
   const { user, loading } = useAuth();
   const router = useRouter();
 
@@ -177,7 +180,12 @@ export default function ClientModulePage({ modulId }: ClientModulePageProps) {
             <div className="space-y-4">
               <div>
                 <p className="text-sm text-muted-foreground">Modultyp</p>
-                <p className="font-medium">{module.bezeichnung}</p>
+                <button
+                  onClick={() => setModuleImageOpen(true)}
+                  className="font-medium text-primary hover:underline focus:outline-none"
+                >
+                  {module.bezeichnung}
+                </button>
               </div>
               
               <div>
@@ -290,6 +298,31 @@ export default function ClientModulePage({ modulId }: ClientModulePageProps) {
           </CardContent>
         </Card>
       </div>
+
+      {/* Solar Module Image Dialog */}
+      <Dialog open={moduleImageOpen} onOpenChange={setModuleImageOpen}>
+        <DialogContent className="sm:max-w-4xl max-h-[90vh] overflow-auto">
+          <DialogHeader>
+            <DialogTitle>{module.bezeichnung}</DialogTitle>
+          </DialogHeader>
+          <div className="relative w-full min-h-[400px] max-h-[70vh] overflow-hidden rounded-lg">
+            <Image
+              src={`/images/solar-modules/${module.solarmodultypnummer}.png`}
+              alt={`Foto von ${module.bezeichnung}`}
+              fill
+              className="object-contain"
+              onError={(e) => {
+                const target = e.target as HTMLImageElement;
+                target.src = "/images/solar-modules/default.png";
+              }}
+            />
+          </div>
+          <div className="text-sm text-muted-foreground mt-2">
+            <p>Modellnummer: {module.solarmodultypnummer}</p>
+            <p>Nennleistung: {module.pmpp} W</p>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 } 

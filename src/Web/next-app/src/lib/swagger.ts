@@ -21,11 +21,20 @@ export const getApiDocs = async () => {
             in: 'cookie',
             name: 'auth-token',
           },
+          apiKey: {
+            type: 'apiKey',
+            in: 'header',
+            name: 'x-api-key',
+            description: 'API key from user profile to authenticate API calls',
+          },
         },
       },
       security: [
         {
           cookieAuth: [],
+        },
+        {
+          apiKey: [],
         },
       ],
     },
