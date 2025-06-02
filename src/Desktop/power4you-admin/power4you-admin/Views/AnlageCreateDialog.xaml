@@ -1,0 +1,171 @@
+<Window x:Class="power4you_admin.Views.AnlageCreateDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:models="clr-namespace:power4you_admin.Models"
+        mc:Ignorable="d"
+        Title="Neue Anlage erstellen"
+        Height="750" Width="950"
+        WindowStartupLocation="CenterOwner"
+        Background="{DynamicResource MaterialDesignPaper}"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        FontFamily="{materialDesign:MaterialDesignFont}">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/> <!-- Header -->
+            <RowDefinition Height="*"/>    <!-- Content -->
+            <RowDefinition Height="Auto"/> <!-- Footer -->
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <Border Grid.Row="0" Background="{DynamicResource PrimaryHueMidBrush}" Padding="24,16">
+            <TextBlock Text="Neue Anlage erstellen" FontSize="20" FontWeight="Bold" Foreground="White"/>
+        </Border>
+
+        <!-- Content -->
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Padding="24">
+            <StackPanel>
+                <!-- Customer Selection -->
+                <materialDesign:Card Padding="16" Margin="0,0,0,24">
+                    <StackPanel>
+                        <TextBlock Text="1. Kunde auswählen" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,12"/>
+                        <ComboBox Name="CustomerComboBox"
+                                  materialDesign:HintAssist.Hint="Kunde auswählen (ID - Name)"
+                                  ItemsSource="{Binding EligibleCustomers}"
+                                  DisplayMemberPath="DisplayFullNameWithId" 
+                                  SelectionChanged="CustomerComboBox_SelectionChanged"
+                                  Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                                  IsEnabled="{Binding IsCustomerSelectionEnabled}"/>
+                        
+                        <Border Name="SelectedCustomerDetailsBorder" 
+                                BorderBrush="{DynamicResource MaterialDesignDivider}" 
+                                BorderThickness="1" Margin="0,16,0,0" Padding="16" CornerRadius="4"
+                                Visibility="Collapsed">
+                            <StackPanel>
+                                <TextBlock Text="Ausgewählter Kunde:" FontSize="14" FontWeight="Medium" Margin="0,0,0,8"/>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Grid.Row="0" Grid.Column="0" Text="ID:" FontWeight="Medium" Margin="0,0,8,4"/>
+                                    <TextBlock Grid.Row="0" Grid.Column="1" Name="SelectedCustomerIdText"/>
+                                    <TextBlock Grid.Row="1" Grid.Column="0" Text="Name:" FontWeight="Medium" Margin="0,0,8,4"/>
+                                    <TextBlock Grid.Row="1" Grid.Column="1" Name="SelectedCustomerNameText"/>
+                                    <TextBlock Grid.Row="2" Grid.Column="0" Text="Adresse:" FontWeight="Medium" Margin="0,0,8,4"/>
+                                    <TextBlock Grid.Row="2" Grid.Column="1" Name="SelectedCustomerAddressText" TextWrapping="Wrap"/>
+                                </Grid>
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+                </materialDesign:Card>
+
+                <!-- Module Addition -->
+                <materialDesign:Card Padding="16" Margin="0,0,0,24" Name="ModuleSectionCard" IsEnabled="False">
+                    <StackPanel>
+                        <TextBlock Text="2. Solarmodule hinzufügen" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,12"/>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <ComboBox Grid.Column="0" Name="SolarmodultypComboBox"
+                                      materialDesign:HintAssist.Hint="Solarmodultyp auswählen"
+                                      ItemsSource="{Binding AvailableSolarmodultypen}"
+                                      DisplayMemberPath="Bezeichnung"
+                                      Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                                      Margin="0,0,8,0"/>
+                            
+                            <TextBox     Grid.Column="1"
+                                     Name="ModuleQuantityTextBox" 
+                                     Text="1"
+                                     Width="80"
+                                     Margin="0,0,8,0"
+                                     VerticalAlignment="Center"
+                                     HorizontalContentAlignment="Center"
+                                     materialDesign:HintAssist.Hint="Anzahl"
+                                     Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                     PreviewTextInput="ModuleQuantityTextBox_PreviewTextInput"/>
+
+                            <Button Grid.Column="2" Name="AddStagedModulButton" 
+                                    Style="{StaticResource MaterialDesignRaisedButton}" 
+                                    Background="{DynamicResource SecondaryHueMidBrush}" Foreground="White"
+                                    Click="AddStagedModulButton_Click">
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon Kind="Add" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                                    <TextBlock Text="MODUL ZUR ANLAGE HINZUFÜGEN"/>
+                                </StackPanel>
+                            </Button>
+                        </Grid>
+
+                        <TextBlock Text="Für die neue Anlage vorgesehene Module:" FontSize="14" Margin="0,16,0,8"/>
+                        <DataGrid Name="StagedModulesDataGrid"
+                                  AutoGenerateColumns="False"
+                                  CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True"
+                                  ItemsSource="{Binding StagedSolarmoduleView}"
+                                  SelectionMode="Single"
+                                  MaxHeight="250">
+                            <DataGrid.Resources>
+                                <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}">
+                                    <Setter Property="Foreground" Value="{DynamicResource MaterialDesignBody}"/>
+                                    <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                                </Style>
+                            </DataGrid.Resources>
+                            <DataGrid.Columns>
+                                <!-- Modul Nr. is not yet known, will be assigned by DB -->
+                                <DataGridTextColumn Header="Typ-Nr." Binding="{Binding Solarmodultypnummer}" Width="Auto"/>
+                                <DataGridTextColumn Header="Bezeichnung" Binding="{Binding Solarmodultyp.Bezeichnung}" Width="*"/>
+                                <DataGridTextColumn Header="Leistung (Pmpp)" Binding="{Binding Solarmodultyp.Pmpp, StringFormat='{}{0} W'}" Width="Auto"/>
+                                <DataGridTemplateColumn Header="Aktionen" Width="Auto">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Button Name="RemoveStagedModulButton" 
+                                                    Style="{StaticResource MaterialDesignIconButton}" 
+                                                    ToolTip="Vorgesehenes Modul entfernen"
+                                                    Click="RemoveStagedModulButton_Click" 
+                                                    Tag="{Binding}"  
+                                                    Foreground="{DynamicResource MaterialDesignErrorBrush}">
+                                                <materialDesign:PackIcon Kind="DeleteOutline"/>
+                                            </Button>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                        <TextBlock Name="NoStagedModulesText" Text="Noch keine Module für die neue Anlage vorgesehen." 
+                                   Visibility="Visible" HorizontalAlignment="Center" Margin="0,16,0,0" 
+                                   Foreground="{DynamicResource MaterialDesignBodyLight}"/>
+                    </StackPanel>
+                </materialDesign:Card>
+
+            </StackPanel>
+        </ScrollViewer>
+
+        <!-- Footer -->
+        <Border Grid.Row="2" Background="{DynamicResource MaterialDesignToolBarBackground}" Padding="16" BorderThickness="0,1,0,0" BorderBrush="{DynamicResource MaterialDesignDivider}">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Name="CreateAnlageInternalButton" Content="ANLAGE ERSTELLEN" Style="{StaticResource MaterialDesignRaisedButton}" Click="CreateAnlageInternalButton_Click" IsDefault="True" Margin="0,0,8,0" IsEnabled="{Binding IsCreateButtonEnabled}"/>
+                <Button Name="CancelButton" Content="ABBRECHEN" Style="{StaticResource MaterialDesignOutlinedButton}" Click="CancelButton_Click" IsCancel="True"/>
+            </StackPanel>
+        </Border>
+        
+        <!-- Loading Overlay -->
+        <Grid Name="LoadingOverlayDialog" Grid.RowSpan="3" Background="#80000000" Visibility="Collapsed">
+            <Border Background="{DynamicResource MaterialDesignPaper}" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="32" CornerRadius="8" Effect="{StaticResource MaterialDesignShadowDepth5}">
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <ProgressBar Style="{StaticResource MaterialDesignCircularProgressBar}" Width="48" Height="48" IsIndeterminate="True" Margin="0,0,0,16"/>
+                    <TextBlock Text="Verarbeite..." FontSize="16" HorizontalAlignment="Center" Foreground="{DynamicResource MaterialDesignBody}"/>
+                </StackPanel>
+            </Border>
+        </Grid>
+    </Grid>
+</Window> 
