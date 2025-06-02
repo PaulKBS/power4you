@@ -5,7 +5,7 @@ const nextConfig: NextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
-  distDir: 'dist',
+  distDir: 'build',
 };
 
 export default nextConfig;
