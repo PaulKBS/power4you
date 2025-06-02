@@ -5,11 +5,14 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:power4you_admin.Views"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:converters="clr-namespace:power4you_admin.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="700" d:DesignWidth="1000"
              Background="{DynamicResource MaterialDesignPaper}">
 
     <UserControl.Resources>
+        <converters:StatusToColorConverter x:Key="StatusToColorConverter"/>
+        <converters:StatusToTextConverter x:Key="StatusToTextConverter"/>
         <Style x:Key="PageElementAnimationStyle" TargetType="FrameworkElement">
             <Setter Property="Opacity" Value="0"/>
             <Setter Property="RenderTransform">
@@ -109,17 +112,32 @@
                         <!-- Row 2: Main Action Buttons -->
                         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
                             <Button Name="CreateAnlageButton"
-                                    Content="NEUE ANLAGE ERSTELLEN"
                                     Style="{StaticResource MaterialDesignRaisedButton}"
                                     Background="{DynamicResource PrimaryHueMidBrush}"
                                     Foreground="White"
                                     materialDesign:ButtonAssist.CornerRadius="4"
                                     Margin="0,0,16,0"
                                     ToolTip="Eine neue Solaranlage für einen Kunden ohne bestehende Anlage erstellen."
-                                    Click="CreateAnlageButton_Click">
-                                <Button.Effect>
-                                    <DropShadowEffect ShadowDepth="1" Color="{Binding Source={StaticResource PrimaryHueMidBrush}, Path=Color}" Opacity="0.3" BlurRadius="5"/>
-                                </Button.Effect>
+                                    Click="CreateAnlageButton_Click"
+                                    Padding="20,10" Height="40"
+                                    VerticalContentAlignment="Center">
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon Kind="PlusBoxOutline" Width="18" Height="18"/>
+                                    <TextBlock Text="NEUE ANLAGE" Margin="8,0,0,0" FontSize="13" VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </Button>
+                            
+                            <Button Name="ExportButton"
+                                    Style="{StaticResource MaterialDesignRaisedButton}"
+                                    Background="{DynamicResource PrimaryHueMidBrush}" 
+                                    Foreground="White"
+                                    Padding="20,10" Height="40" Margin="0,0,16,0"
+                                    Click="ExportButton_Click"
+                                    VerticalContentAlignment="Center">
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon Kind="Download" Width="18" Height="18"/>
+                                    <TextBlock Text="DATEN EXPORTIEREN" Margin="8,0,0,0" FontSize="13"/>
+                                </StackPanel>
                             </Button>
                             
                             <Button Name="RefreshButton"
@@ -128,24 +146,10 @@
                                     Foreground="{DynamicResource PrimaryHueMidBrush}"
                                     ToolTip="Anlagendaten neu laden"
                                     Click="RefreshButton_Click"
-                                    Padding="10,8"
-                                    Margin="0,0,8,0">
+                                    Padding="10,8">
                                 <StackPanel Orientation="Horizontal">
                                     <materialDesign:PackIcon Kind="Refresh" VerticalAlignment="Center" Margin="0,0,8,0"/>
                                     <TextBlock Text="AKTUALISIEREN" VerticalAlignment="Center"/>
-                                </StackPanel>
-                            </Button>
-
-                            <Button Name="ExportButton"
-                                    Style="{StaticResource MaterialDesignRaisedButton}"
-                                    Background="{DynamicResource PrimaryHueMidBrush}" 
-                                    Foreground="White"
-                                    Padding="20,10" Height="40"
-                                    Click="ExportButton_Click"
-                                    VerticalContentAlignment="Center">
-                                <StackPanel Orientation="Horizontal">
-                                    <materialDesign:PackIcon Kind="Download" Width="18" Height="18"/>
-                                    <TextBlock Text="DATEN EXPORTIEREN" Margin="8,0,0,0" FontSize="13"/>
                                 </StackPanel>
                             </Button>
                         </StackPanel>
@@ -251,8 +255,8 @@
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>
                                                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                                                    <Ellipse Width="10" Height="10" Fill="{Binding Path=., Converter={StaticResource PerformanceToBrushConverter}}" Margin="0,0,8,0"/>
-                                                    <TextBlock Text="{Binding Path=., Converter={StaticResource PerformanceToStringConverter}}" VerticalAlignment="Center" Style="{StaticResource MaterialDesignBody1TextBlock}"/>
+                                                    <Ellipse Width="10" Height="10" Fill="{Binding Path=., Converter={StaticResource StatusToColorConverter}}" Margin="0,0,8,0"/>
+                                                    <TextBlock Text="{Binding Path=., Converter={StaticResource StatusToTextConverter}}" VerticalAlignment="Center" Style="{StaticResource MaterialDesignBody1TextBlock}"/>
                                                 </StackPanel>
                                             </DataTemplate>
                                         </DataGridTemplateColumn.CellTemplate>
