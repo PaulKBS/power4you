@@ -1,0 +1,68 @@
+<UserControl x:Class="power4you_admin.Views.SolarmodultypEditDialog"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:power4you_admin.Views"
+             xmlns:models="clr-namespace:power4you_admin.Models"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             mc:Ignorable="d" 
+             d:DataContext="{d:DesignInstance models:Solarmodultyp}"
+             Width="500">
+    <StackPanel Margin="24">
+        <TextBlock Name="DialogTitle" Text="Solarmodultyp hinzufügen" Style="{StaticResource MaterialDesignHeadline6TextBlock}" Margin="0,0,0,16"/>
+
+        <TextBox Name="BezeichnungTextBox"
+                 materialDesign:HintAssist.Hint="Bezeichnung (z.B. SunPower Maxeon 3)"
+                 Text="{Binding Bezeichnung, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True, NotifyOnValidationError=True}"
+                 Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                 Margin="0,0,0,16"/>
+        
+        <Grid Margin="0,0,0,16">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="16"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <TextBox Name="PmppTextBox"
+                     Grid.Column="0"
+                     materialDesign:HintAssist.Hint="Pmpp (Wp)"
+                     Text="{Binding Pmpp, StringFormat='{}{0:F2}', UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True, NotifyOnValidationError=True}"
+                     Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
+            <TextBox Name="UmppTextBox"
+                     Grid.Column="2"
+                     materialDesign:HintAssist.Hint="Umpp (V)"
+                     Text="{Binding Umpp, StringFormat='{}{0:F2}', UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True, NotifyOnValidationError=True}"
+                     Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
+        </Grid>
+
+        <TextBox Name="ImppTextBox"
+                 materialDesign:HintAssist.Hint="Impp (A)"
+                 Text="{Binding Impp, StringFormat='{}{0:F2}', UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True, NotifyOnValidationError=True}"
+                 Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                 Margin="0,0,0,24"/>
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Name="CancelButton" 
+                    Content="ABBRECHEN" 
+                    Style="{StaticResource MaterialDesignOutlinedButton}" 
+                    Margin="0,0,8,0"
+                    Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}">
+                <Button.CommandParameter>
+                    <sys:Boolean xmlns:sys="clr-namespace:System;assembly=mscorlib">False</sys:Boolean>
+                </Button.CommandParameter>
+            </Button>
+            <Button Name="SaveButton" 
+                    Content="SPEICHERN" 
+                    Style="{StaticResource MaterialDesignRaisedButton}"
+                    Click="SaveButton_Click"/>
+        </StackPanel>
+         <!-- Loading Overlay for Save -->
+        <Grid Name="DialogLoadingOverlay" Visibility="Collapsed" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,-150,0,0"> 
+            <materialDesign:Card Padding="10" UniformCornerRadius="4">
+                 <ProgressBar Style="{StaticResource MaterialDesignCircularProgressBar}" Width="30" Height="30" IsIndeterminate="True"/>
+            </materialDesign:Card>
+        </Grid>
+    </StackPanel>
+</UserControl> 

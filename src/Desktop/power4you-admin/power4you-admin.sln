@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35327.3
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "power4you-admin", "power4you-admin\power4you-admin.csproj", "{005C735F-EE85-4766-A424-BB03C094A00C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{005C735F-EE85-4766-A424-BB03C094A00C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{005C735F-EE85-4766-A424-BB03C094A00C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{005C735F-EE85-4766-A424-BB03C094A00C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{005C735F-EE85-4766-A424-BB03C094A00C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {224EFB97-DEC3-4DB2-B74E-3AB4CA49ECB2}
+	EndGlobalSection
+EndGlobal

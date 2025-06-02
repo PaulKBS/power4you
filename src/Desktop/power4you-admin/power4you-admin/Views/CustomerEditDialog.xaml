@@ -1,0 +1,252 @@
+<Window x:Class="power4you_admin.Views.CustomerEditDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        Title="Kundendetails"
+        Height="650" 
+        Width="520"
+        MinHeight="600"
+        MinWidth="500"
+        WindowStartupLocation="CenterOwner"
+        Background="{DynamicResource MaterialDesignPaper}"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        FontFamily="{materialDesign:MaterialDesignFont}">
+    
+    <materialDesign:DialogHost>
+        <Border Background="{DynamicResource MaterialDesignPaper}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                
+                <!-- Header -->
+                <Border Grid.Row="0" 
+                        Background="{DynamicResource PrimaryHueMidBrush}"
+                        Padding="32,24">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="AccountEdit" 
+                                               Width="28" 
+                                               Height="28" 
+                                               VerticalAlignment="Center"
+                                               Foreground="White"/>
+                        <TextBlock Text="Kundeninformationen" 
+                                   FontSize="22" 
+                                   FontWeight="SemiBold" 
+                                   VerticalAlignment="Center" 
+                                   Foreground="White"
+                                   Margin="16,0,0,0"/>
+                    </StackPanel>
+                </Border>
+                
+                <!-- Form Fields -->
+                <ScrollViewer Grid.Row="1" 
+                              VerticalScrollBarVisibility="Auto"
+                              HorizontalScrollBarVisibility="Disabled"
+                              Padding="32,24,16,24">
+                    <StackPanel Margin="0,0,16,0">
+                        <!-- User Credentials Section -->
+                        <Border Background="{DynamicResource MaterialDesignCardBackground}"
+                                BorderBrush="{DynamicResource MaterialDesignDivider}"
+                                BorderThickness="0,0,0,1"
+                                Padding="24,20"
+                                Margin="0,0,0,20"
+                                materialDesign:ElevationAssist.Elevation="Dp2">
+                            <StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="0,0,0,16">
+                                    <materialDesign:PackIcon Kind="Account" 
+                                                           Width="20" 
+                                                           Height="20" 
+                                                           VerticalAlignment="Center"
+                                                           Foreground="{DynamicResource PrimaryHueMidBrush}"/>
+                                    <TextBlock Text="Benutzerkonto" 
+                                               FontSize="16" 
+                                               FontWeight="Medium" 
+                                               VerticalAlignment="Center" 
+                                               Margin="8,0,0,0"/>
+                                </StackPanel>
+                                
+                                <!-- User ID (for existing customers) -->
+                                <TextBox Name="UserIdTextBox"
+                                         materialDesign:HintAssist.Hint="Benutzer-ID"
+                                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                         IsReadOnly="True"
+                                         Background="{DynamicResource MaterialDesignTextFieldBoxDisabledBackground}"
+                                         Margin="0,0,0,20"/>
+                                
+                                <!-- Username -->
+                                <TextBox Name="UsernameTextBox"
+                                         materialDesign:HintAssist.Hint="Benutzername *"
+                                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                         Margin="0,0,0,20"/>
+                                
+                                <!-- Password (for new customers) -->
+                                <PasswordBox Name="PasswordBox"
+                                             materialDesign:HintAssist.Hint="Passwort *"
+                                             Style="{StaticResource MaterialDesignOutlinedPasswordBox}"
+                                             Margin="0,0,0,0"/>
+                            </StackPanel>
+                        </Border>
+                        
+                        <!-- Personal Information Section -->
+                        <Border Background="{DynamicResource MaterialDesignCardBackground}"
+                                BorderBrush="{DynamicResource MaterialDesignDivider}"
+                                BorderThickness="0,0,0,1"
+                                Padding="24,20"
+                                Margin="0,0,0,20"
+                                materialDesign:ElevationAssist.Elevation="Dp2">
+                            <StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="0,0,0,16">
+                                    <materialDesign:PackIcon Kind="CardAccountDetails" 
+                                                           Width="20" 
+                                                           Height="20" 
+                                                           VerticalAlignment="Center"
+                                                           Foreground="{DynamicResource PrimaryHueMidBrush}"/>
+                                    <TextBlock Text="Persönliche Informationen" 
+                                               FontSize="16" 
+                                               FontWeight="Medium" 
+                                               VerticalAlignment="Center" 
+                                               Margin="8,0,0,0"/>
+                                </StackPanel>
+                                
+                                <!-- Name Row -->
+                                <Grid Margin="0,0,0,20">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="12"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    
+                                    <TextBox Name="VornameTextBox"
+                                             Grid.Column="0"
+                                             materialDesign:HintAssist.Hint="Vorname *"
+                                             Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
+                                    
+                                    <TextBox Name="NachnameTextBox"
+                                             Grid.Column="2"
+                                             materialDesign:HintAssist.Hint="Nachname *"
+                                             Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
+                                </Grid>
+                                
+                                <!-- Contact Information -->
+                                <TextBox Name="EmailTextBox"
+                                         materialDesign:HintAssist.Hint="E-Mail-Adresse *"
+                                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                         Margin="0,0,0,20"/>
+                                
+                                <TextBox Name="TelefonnummerTextBox"
+                                         materialDesign:HintAssist.Hint="Telefonnummer *"
+                                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                         Margin="0,0,0,0"/>
+                            </StackPanel>
+                        </Border>
+                        
+                        <!-- Address Section -->
+                        <Border Background="{DynamicResource MaterialDesignCardBackground}"
+                                BorderBrush="{DynamicResource MaterialDesignDivider}"
+                                BorderThickness="0,0,0,1"
+                                Padding="24,20"
+                                Margin="0,0,0,0"
+                                materialDesign:ElevationAssist.Elevation="Dp2">
+                            <StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="0,0,0,16">
+                                    <materialDesign:PackIcon Kind="MapMarker" 
+                                                           Width="20" 
+                                                           Height="20" 
+                                                           VerticalAlignment="Center"
+                                                           Foreground="{DynamicResource PrimaryHueMidBrush}"/>
+                                    <TextBlock Text="Adressinformationen" 
+                                               FontSize="16" 
+                                               FontWeight="Medium" 
+                                               VerticalAlignment="Center" 
+                                               Margin="8,0,0,0"/>
+                                </StackPanel>
+                                
+                                <!-- Street and House Number -->
+                                <Grid Margin="0,0,0,20">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="2*"/>
+                                        <ColumnDefinition Width="12"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    
+                                    <TextBox Name="StrasseTextBox"
+                                             Grid.Column="0"
+                                             materialDesign:HintAssist.Hint="Straße *"
+                                             Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
+                                    
+                                    <TextBox Name="HausnummerTextBox"
+                                             Grid.Column="2"
+                                             materialDesign:HintAssist.Hint="Hausnummer *"
+                                             Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
+                                </Grid>
+                                
+                                <!-- Postal Code and City -->
+                                <Grid Margin="0,0,0,16">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="12"/>
+                                        <ColumnDefinition Width="2*"/>
+                                    </Grid.ColumnDefinitions>
+                                    
+                                    <TextBox Name="PostleitzahlTextBox"
+                                             Grid.Column="0"
+                                             materialDesign:HintAssist.Hint="Postleitzahl *"
+                                             Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
+                                    
+                                    <TextBox Name="OrtTextBox"
+                                             Grid.Column="2"
+                                             materialDesign:HintAssist.Hint="Stadt *"
+                                             Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
+                                </Grid>
+                                
+                                <!-- Required fields note -->
+                                <Border Background="{DynamicResource MaterialDesignDivider}"
+                                        Height="1"
+                                        Margin="0,0,0,12"/>
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon Kind="Information" 
+                                                           Width="16" 
+                                                           Height="16" 
+                                                           VerticalAlignment="Center"
+                                                           Foreground="{DynamicResource MaterialDesignBodyLight}"/>
+                                    <TextBlock Text="Felder mit * sind Pflichtfelder" 
+                                               FontSize="12" 
+                                               Foreground="{DynamicResource MaterialDesignBodyLight}"
+                                               VerticalAlignment="Center"
+                                               Margin="8,0,0,0"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+                </ScrollViewer>
+                
+                <!-- Action Buttons -->
+                <Border Grid.Row="2" 
+                        Background="{DynamicResource MaterialDesignCardBackground}"
+                        BorderBrush="{DynamicResource MaterialDesignDivider}"
+                        BorderThickness="0,1,0,0"
+                        Padding="32,20">
+                    <StackPanel Orientation="Horizontal" 
+                                HorizontalAlignment="Right">
+                        <Button Name="CancelButton" 
+                                Content="ABBRECHEN" 
+                                Style="{StaticResource MaterialDesignFlatButton}"
+                                Padding="24,8"
+                                Margin="0,0,12,0"
+                                Click="CancelButton_Click"/>
+                        <Button Name="SaveButton" 
+                                Content="SPEICHERN" 
+                                Style="{StaticResource MaterialDesignRaisedButton}"
+                                Padding="24,8"
+                                Click="SaveButton_Click"/>
+                    </StackPanel>
+                </Border>
+            </Grid>
+        </Border>
+    </materialDesign:DialogHost>
+</Window> 
